@@ -1,2 +1,38 @@
-# Ignore Jupyter checkpoints everywhere
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Jupyter Notebook checkpoints
 **/.ipynb_checkpoints/
+**/*-checkpoint.ipynb
+**/*-checkpoint.py
+
+# Jupyter Notebook runtime files
+.ipynb_checkpoints/
+*.nbconvert.ipynb
+*.nbconvert.log
+
+# VSCode or other editor configs
+.vscode/
+*.code-workspace
+
+# macOS system files
+.DS_Store
+
+# Python virtual environments
+.venv/
+env/
+venv/
+
+# Logs
+*.log
+
+# Coverage reports
+htmlcov/
+.coverage
+.cache
+.pytest_cache/
+
+# GitHub Desktop
+*.orig
