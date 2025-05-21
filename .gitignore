@@ -1,0 +1,2 @@
+# Ignore Jupyter checkpoints everywhere
+**/.ipynb_checkpoints/
