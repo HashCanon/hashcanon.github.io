@@ -8,18 +8,21 @@
     html, body {
       margin: 0;
       padding: 0;
-      background: black;
-      height: 100%;
-      width: 100%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
+      background: white;
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+      position: relative;
     }
-
+    
     canvas {
+      background: black;
+      position: absolute;
+      top: 50%;
+      left: 50%;
       width: 100vmin;
       height: 100vmin;
-      display: block;
+      transform: translate(-50%, -50%);
     }
   </style>
 </head>
@@ -60,8 +63,8 @@
       const numRings = 4;
       const sectors = 64;
       const angleStep = (2 * Math.PI) / sectors;
-      const radiusStep = 80;       // адаптировано под 1024
-      const baseRadius = 160;      // адаптировано под 1024
+      const radiusStep = 80;     
+      const baseRadius = 160;    
 
       for (let i = 0; i < sectors; i++) {
         const bin = bits.slice(i * 4, (i + 1) * 4).reverse();
