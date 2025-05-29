@@ -7,27 +7,37 @@
   <meta name="author" content="DataSattva">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="canonical" href="https://github.com/DataSattva/hashjing" />
-
   <style>
-    body {
-      background: white;
+    html, body {
+      margin: 0;
+      padding: 0;
+      background: black;
+      height: 100%;
+      width: 100%;
+      overflow: hidden;
       display: flex;
       justify-content: center;
       align-items: center;
-      height: 100vh;
-      margin: 0;
-      flex-direction: column;
     }
+
     canvas {
-      border: 0px;
-      background: #000;
+      width: 100vmin;
+      height: 100vmin;
+      max-width: 100%;
+      max-height: 100%;
+      display: block;
     }
   </style>
 </head>
 <body>
-<canvas id="hashCanvas" width="512" height="512"></canvas>
+<canvas id="hashCanvas"></canvas>
 
 <script>
+const canvas = document.getElementById("hashCanvas");
+canvas.width = 1024;
+canvas.height = 1024;
+const ctx = canvas.getContext("2d");
+
 const tokenData = {
   hash: generateRandomHash()
 };
@@ -47,8 +57,6 @@ function hexToBitArray(hex) {
 }
 
 function drawMandala(bits, hex) {
-  const canvas = document.getElementById("hashCanvas");
-  const ctx = canvas.getContext("2d");
   ctx.fillStyle = "black";
   ctx.fillRect(0, 0, canvas.width, canvas.height);
 
@@ -57,7 +65,7 @@ function drawMandala(bits, hex) {
   const numRings = 4;
   const sectors = 64;
   const angleStep = (2 * Math.PI) / sectors;
-  const radiusStep = 40;
+  const radiusStep = 100;
   const baseRadius = 80;
 
   for (let i = 0; i < sectors; i++) {
@@ -68,7 +76,6 @@ function drawMandala(bits, hex) {
       const rInner = (3 - j) * radiusStep + baseRadius;
       const rOuter = rInner + radiusStep;
 
-      // Обводка сектора
       ctx.beginPath();
       ctx.moveTo(cx + rInner * Math.cos(angleStart), cy + rInner * Math.sin(angleStart));
       ctx.arc(cx, cy, rInner, angleStart, angleEnd);
@@ -79,7 +86,6 @@ function drawMandala(bits, hex) {
       ctx.lineWidth = 1;
       ctx.stroke();
 
-      // Бит
       if (bin[j] === 1) {
         ctx.fillStyle = "white";
         ctx.fill();
@@ -87,13 +93,12 @@ function drawMandala(bits, hex) {
     }
   }
 
-  // Central hex block
   const square = hex.slice(2).match(/.{1,16}/g);
-  ctx.font = "10px monospace";
+  ctx.font = "14px monospace";
   ctx.fillStyle = "white";
   ctx.textAlign = "center";
   square.forEach((line, i) => {
-    ctx.fillText(line, cx, cy - 23 + i * 18);
+    ctx.fillText(line, cx, cy - 40 + i * 20);
   });
 }
 
