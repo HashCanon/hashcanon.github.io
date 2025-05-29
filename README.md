@@ -60,6 +60,6 @@ A mandala becomes a frame for contemplation—of entropy, symmetry, rarity, and 
 **No user input required**—just reload the page to see a new mandala.
 Perfect for demonstrating deterministic randomness and testing the visual rhythm of hashes.
 
-[Open the HashJing demo](https://datasattva.github.io/hashjing/)
+[**Open the HashJing demo**](https://datasattva.github.io/hashjing/)
 
 You can also supply your own hash value; see the example code in [WhitePaper.ipynb](https://github.com/DataSattva/hashjing/blob/main/WhitePaper.ipynb).
