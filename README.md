@@ -44,13 +44,13 @@ A mandala becomes a frame for contemplation—of entropy, symmetry, rarity, and 
 
 ## Further reading
 
-* **ArtManifesto.md** – the philosophical core.
+* [**ArtManifesto.md**](https://github.com/DataSattva/hashjing/blob/main/ArtManifesto.md) – the philosophical core.
   Explains HashJing as a way to embody the “shape of randomness,” fusing cryptography, the *Yì Jīng*, and digital aesthetics. Here the mandala is not ornament but the geometry of entropy.
 
-* **WhitePaper.ipynb** – the technical paper.
+* [**WhitePaper.ipynb**](https://github.com/DataSattva/hashjing/blob/main/WhitePaper.ipynb) – the technical paper.
   Details the hash structure, the visual-mapping rules (including the 160-bit address variant), and demonstrates the main drawing function `draw_mandala`.
 
-* **FamousHashes.ipynb** – mandalas of iconic hashes.
+* [**FamousHashes.ipynb**](https://github.com/DataSattva/hashjing/blob/main/FamousHashes.ipynb) – mandalas of iconic hashes.
   Shows the Genesis block of Bitcoin, the CryptoPunks contract address, and other historically or culturally significant hashes, illustrating how an abstract string becomes a visual signature.
 
 ## Demo page
@@ -60,6 +60,6 @@ A mandala becomes a frame for contemplation—of entropy, symmetry, rarity, and 
 **No user input required**—just reload the page to see a new mandala.
 Perfect for demonstrating deterministic randomness and testing the visual rhythm of hashes.
 
-[Open the HashJing demo](https://datasattva.github.io/hashjing/)
+[**Open the HashJing demo**](https://datasattva.github.io/hashjing/)
 
 You can also supply your own hash value; see the example code in [WhitePaper.ipynb](https://github.com/DataSattva/hashjing/blob/main/WhitePaper.ipynb).
