@@ -1,103 +1,106 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>HashJing Mandala</title>
-  <meta name="description" content="HashJing is a generative art project that visualizes hashes as symbolic mandalas. Each hash becomes a unique circular diagram with deterministic structure.">
-  <meta name="author" content="DataSattva">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="canonical" href="https://github.com/DataSattva/hashjing" />
-
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <style>
-    body {
-      background: white;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
+    html, body {
       margin: 0;
-      flex-direction: column;
+      padding: 0;
+      background: white;
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+      position: relative;
     }
+    
     canvas {
-      border: 0px;
-      background: #000;
+      background: black;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 100vmin;
+      height: 100vmin;
+      transform: translate(-50%, -50%);
     }
   </style>
 </head>
 <body>
-<canvas id="hashCanvas" width="512" height="512"></canvas>
+  <canvas id="hashCanvas"></canvas>
+  <script>
+    const canvas = document.getElementById("hashCanvas");
+    canvas.width = 1024;
+    canvas.height = 1024;
+    const ctx = canvas.getContext("2d");
 
-<script>
-const tokenData = {
-  hash: generateRandomHash()
-};
+    const tokenData = {
+      hash: generateRandomHash()
+    };
 
-function generateRandomHash() {
-  const hexChars = '0123456789abcdef';
-  let result = '0x';
-  for (let i = 0; i < 64; i++) {
-    result += hexChars[Math.floor(Math.random() * 16)];
-  }
-  return result;
-}
-
-function hexToBitArray(hex) {
-  if (hex.startsWith("0x")) hex = hex.slice(2);
-  return hex.split('').flatMap(h => parseInt(h, 16).toString(2).padStart(4, '0').split('').map(b => parseInt(b)));
-}
-
-function drawMandala(bits, hex) {
-  const canvas = document.getElementById("hashCanvas");
-  const ctx = canvas.getContext("2d");
-  ctx.fillStyle = "black";
-  ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-  const cx = canvas.width / 2;
-  const cy = canvas.height / 2;
-  const numRings = 4;
-  const sectors = 64;
-  const angleStep = (2 * Math.PI) / sectors;
-  const radiusStep = 40;
-  const baseRadius = 80;
-
-  for (let i = 0; i < sectors; i++) {
-    const bin = bits.slice(i * 4, (i + 1) * 4).reverse();
-    for (let j = 0; j < 4; j++) {
-      const angleStart = i * angleStep - Math.PI / 2;
-      const angleEnd = angleStart + angleStep;
-      const rInner = (3 - j) * radiusStep + baseRadius;
-      const rOuter = rInner + radiusStep;
-
-      // Обводка сектора
-      ctx.beginPath();
-      ctx.moveTo(cx + rInner * Math.cos(angleStart), cy + rInner * Math.sin(angleStart));
-      ctx.arc(cx, cy, rInner, angleStart, angleEnd);
-      ctx.lineTo(cx + rOuter * Math.cos(angleEnd), cy + rOuter * Math.sin(angleEnd));
-      ctx.arc(cx, cy, rOuter, angleEnd, angleStart, true);
-      ctx.closePath();
-      ctx.strokeStyle = "black";
-      ctx.lineWidth = 1;
-      ctx.stroke();
-
-      // Бит
-      if (bin[j] === 1) {
-        ctx.fillStyle = "white";
-        ctx.fill();
+    function generateRandomHash() {
+      const hexChars = '0123456789abcdef';
+      let result = '0x';
+      for (let i = 0; i < 64; i++) {
+        result += hexChars[Math.floor(Math.random() * 16)];
       }
+      return result;
     }
-  }
 
-  // Central hex block
-  const square = hex.slice(2).match(/.{1,16}/g);
-  ctx.font = "10px monospace";
-  ctx.fillStyle = "white";
-  ctx.textAlign = "center";
-  square.forEach((line, i) => {
-    ctx.fillText(line, cx, cy - 23 + i * 18);
-  });
-}
+    function hexToBitArray(hex) {
+      if (hex.startsWith("0x")) hex = hex.slice(2);
+      return hex.split('').flatMap(h =>
+        parseInt(h, 16).toString(2).padStart(4, '0').split('').map(b => parseInt(b))
+      );
+    }
 
-drawMandala(hexToBitArray(tokenData.hash), tokenData.hash);
-</script>
+    function drawMandala(bits, hex) {
+      ctx.fillStyle = "black";
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      const cx = canvas.width / 2;
+      const cy = canvas.height / 2;
+      const numRings = 4;
+      const sectors = 64;
+      const angleStep = (2 * Math.PI) / sectors;
+      const radiusStep = 80;       
+      const baseRadius = 160;      
+
+      for (let i = 0; i < sectors; i++) {
+        const bin = bits.slice(i * 4, (i + 1) * 4).reverse();
+        for (let j = 0; j < 4; j++) {
+          const angleStart = i * angleStep - Math.PI / 2;
+          const angleEnd = angleStart + angleStep;
+          const rInner = (3 - j) * radiusStep + baseRadius;
+          const rOuter = rInner + radiusStep;
+
+          ctx.beginPath();
+          ctx.moveTo(cx + rInner * Math.cos(angleStart), cy + rInner * Math.sin(angleStart));
+          ctx.arc(cx, cy, rInner, angleStart, angleEnd);
+          ctx.lineTo(cx + rOuter * Math.cos(angleEnd), cy + rOuter * Math.sin(angleEnd));
+          ctx.arc(cx, cy, rOuter, angleEnd, angleStart, true);
+          ctx.closePath();
+          ctx.strokeStyle = "black";
+          ctx.lineWidth = 1;
+          ctx.stroke();
+
+          if (bin[j] === 1) {
+            ctx.fillStyle = "white";
+            ctx.fill();
+          }
+        }
+      }
+
+      const square = hex.slice(2).match(/.{1,16}/g);
+      ctx.font = "22px monospace";
+      ctx.fillStyle = "white";
+      ctx.textAlign = "center";
+      square.forEach((line, i) => {
+        ctx.fillText(line, cx, cy - 45 + i * 36);
+      });
+    }
+
+    drawMandala(hexToBitArray(tokenData.hash), tokenData.hash);
+  </script>
 </body>
 </html>
