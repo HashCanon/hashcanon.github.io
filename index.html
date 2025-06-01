@@ -1,106 +1,120 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>HashJing Mandala</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <title>HashJing Test</title>
   <style>
     html, body {
       margin: 0;
       padding: 0;
-      background: white;
       width: 100vw;
       height: 100vh;
-      overflow: hidden;
-      position: relative;
+      background: white;
     }
-    
-    canvas {
-      background: black;
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      width: 100vmin;
-      height: 100vmin;
-      transform: translate(-50%, -50%);
+
+    svg {
+      display: block;
+      width: 100vw;
+      height: 100vh;
     }
   </style>
 </head>
 <body>
-  <canvas id="hashCanvas"></canvas>
   <script>
-    const canvas = document.getElementById("hashCanvas");
-    canvas.width = 1024;
-    canvas.height = 1024;
-    const ctx = canvas.getContext("2d");
-
-    const tokenData = {
-      hash: generateRandomHash()
-    };
-
+    // Random hash generation (64 hex)
     function generateRandomHash() {
-      const hexChars = '0123456789abcdef';
-      let result = '0x';
+      const hex = "0123456789abcdef";
+      let result = "0x";
       for (let i = 0; i < 64; i++) {
-        result += hexChars[Math.floor(Math.random() * 16)];
+        result += hex[Math.floor(Math.random() * 16)];
       }
       return result;
     }
 
-    function hexToBitArray(hex) {
-      if (hex.startsWith("0x")) hex = hex.slice(2);
-      return hex.split('').flatMap(h =>
-        parseInt(h, 16).toString(2).padStart(4, '0').split('').map(b => parseInt(b))
-      );
-    }
+    const tokenData = {
+      hash: generateRandomHash(),
+      tokenId: "test123"
+    };
 
-    function drawMandala(bits, hex) {
-      ctx.fillStyle = "black";
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-      const cx = canvas.width / 2;
-      const cy = canvas.height / 2;
-      const numRings = 4;
+    (function () {
+      const hash = tokenData.hash;
+      const canvasSize = 1024;
+      const cx = canvasSize / 2;
+      const cy = canvasSize / 2;
       const sectors = 64;
+      const rings = 4;
       const angleStep = (2 * Math.PI) / sectors;
-      const radiusStep = 80;     
-      const baseRadius = 160;    
+      const radiusStep = 80;
+      const baseRadius = 160;
 
-      for (let i = 0; i < sectors; i++) {
-        const bin = bits.slice(i * 4, (i + 1) * 4).reverse();
-        for (let j = 0; j < 4; j++) {
-          const angleStart = i * angleStep - Math.PI / 2;
-          const angleEnd = angleStart + angleStep;
-          const rInner = (3 - j) * radiusStep + baseRadius;
-          const rOuter = rInner + radiusStep;
-
-          ctx.beginPath();
-          ctx.moveTo(cx + rInner * Math.cos(angleStart), cy + rInner * Math.sin(angleStart));
-          ctx.arc(cx, cy, rInner, angleStart, angleEnd);
-          ctx.lineTo(cx + rOuter * Math.cos(angleEnd), cy + rOuter * Math.sin(angleEnd));
-          ctx.arc(cx, cy, rOuter, angleEnd, angleStart, true);
-          ctx.closePath();
-          ctx.strokeStyle = "black";
-          ctx.lineWidth = 1;
-          ctx.stroke();
-
-          if (bin[j] === 1) {
-            ctx.fillStyle = "white";
-            ctx.fill();
-          }
-        }
+      function hexToBitArray(hex) {
+        return hex.slice(2).split('').flatMap(h =>
+          parseInt(h, 16).toString(2).padStart(4, '0').split('').map(Number)
+        );
       }
 
-      const square = hex.slice(2).match(/.{1,16}/g);
-      ctx.font = "22px monospace";
-      ctx.fillStyle = "white";
-      ctx.textAlign = "center";
-      square.forEach((line, i) => {
-        ctx.fillText(line, cx, cy - 45 + i * 36);
-      });
-    }
+      function polarToCartesian(cx, cy, r, angle) {
+        return {
+          x: cx + r * Math.cos(angle),
+          y: cy + r * Math.sin(angle)
+        };
+      }
 
-    drawMandala(hexToBitArray(tokenData.hash), tokenData.hash);
+      function generateSectorPath(i, j) {
+        const angleStart = i * angleStep - Math.PI / 2;
+        const angleEnd = angleStart + angleStep;
+        const rInner = (3 - j) * radiusStep + baseRadius;
+        const rOuter = rInner + radiusStep;
+
+        const a0 = polarToCartesian(cx, cy, rInner, angleStart);
+        const a1 = polarToCartesian(cx, cy, rInner, angleEnd);
+        const b1 = polarToCartesian(cx, cy, rOuter, angleEnd);
+        const b0 = polarToCartesian(cx, cy, rOuter, angleStart);
+
+        return [
+          `M ${a0.x} ${a0.y}`,
+          `A ${rInner} ${rInner} 0 0 1 ${a1.x} ${a1.y}`,
+          `L ${b1.x} ${b1.y}`,
+          `A ${rOuter} ${rOuter} 0 0 0 ${b0.x} ${b0.y}`,
+          "Z"
+        ].join(' ');
+      }
+
+      function drawMandala(bits, hex) {
+        const bgRect = `<rect x="0" y="0" width="${canvasSize}" height="${canvasSize}" fill="black"/>`;
+        const paths = [];
+
+        for (let i = 0; i < sectors; i++) {
+          const bin = bits.slice(i * 4, (i + 1) * 4).reverse();
+          for (let j = 0; j < rings; j++) {
+            const path = generateSectorPath(i, j);
+            const fill = bin[j] === 1 ? "white" : "black";
+            const stroke = "black";
+            paths.push(`<path d="${path}" fill="${fill}" stroke="${stroke}" stroke-width="1"/>`);
+          }
+        }
+
+        const square = hex.slice(2).match(/.{1,16}/g);
+        const textElements = square.map((line, i) => {
+          const y = cy - 45 + i * 36;
+          return `<text x="${cx}" y="${y}" font-size="22" fill="white" text-anchor="middle" font-family="monospace">${line}</text>`;
+        });
+
+        const svg = `
+          <svg xmlns="http://www.w3.org/2000/svg"
+               viewBox="0 0 ${canvasSize} ${canvasSize}"
+               width="100%" height="100%"
+               preserveAspectRatio="xMidYMid meet">
+            ${[bgRect, ...paths, ...textElements].join('\n')}
+          </svg>
+        `;
+
+        document.body.innerHTML = svg;
+      }
+
+      const bits = hexToBitArray(hash);
+      drawMandala(bits, hash);
+    })();
   </script>
 </body>
 </html>
