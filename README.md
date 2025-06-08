@@ -47,8 +47,9 @@ A mandala becomes a frame for contemplation—of entropy, symmetry, rarity, and 
 * [**ArtManifesto.md**](https://github.com/DataSattva/hashjing/blob/main/ArtManifesto.md) – the philosophical core.
   Explains HashJing as a way to embody the “shape of randomness,” fusing cryptography, the *Yì Jīng*, and digital aesthetics. Here the mandala is not ornament but the geometry of entropy.
 
-* [**WhitePaper.ipynb**](https://github.com/DataSattva/hashjing/blob/main/WhitePaper.ipynb) – the technical paper.
-  Details the hash structure, the visual-mapping rules (including the 160-bit address variant), and demonstrates the main drawing function `draw_mandala`.
+* [**WhitePaper.ipynb**](https://github.com/DataSattva/hashjing/blob/main/WhitePaper.ipynb) – the technical paper.  
+  Details the hash structure, the visual-mapping rules (including the 160-bit address variant), and demonstrates the main drawing function `draw_mandala`.  
+  It also introduces higher-level *features of order* such as passage count and bit balance, and explores their statistical distribution in randomly generated hashes.
 
 * [**FamousHashes.ipynb**](https://github.com/DataSattva/hashjing/blob/main/FamousHashes.ipynb) – mandalas of iconic hashes.
   Shows the Genesis block of Bitcoin, the CryptoPunks contract address, and other historically or culturally significant hashes, illustrating how an abstract string becomes a visual signature.

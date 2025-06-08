@@ -1,6 +1,9 @@
 import matplotlib.pyplot as plt
 import numpy as np
-import random, string, hashlib
+import pandas as pd
+import random, string, hashlib, secrets
+from decimal import Decimal
+from collections import deque
 
 __all__ = [
     "generate_random_hash",
@@ -8,21 +11,32 @@ __all__ = [
     "hex_to_binary_grid_corrected",
     "draw_binary_grid_from_hex_dark",
     "draw_mandala",
-    "hash_to_hex256"
+    "hash_to_hex256",
+    "generate_balanced_hash",
+    "bit_ratio",
+    "is_balanced",
+    "count_unique_passages",
+    "generate_hash_with_passages",
+    "passage_distribution",
+    "generate_hash_dataframe"
 ]
 
 
-def generate_random_hash() -> str:
+def generate_random_hash(bits: int = 256) -> str:
     """
-    Generates a random 256-bit hex string (64 characters) with '0x' prefix.
+    Generates a cryptographically secure hex string of the specified bit length.
+
+    Args:
+        bits (int): Bit length. Common values: 160 or 256.
 
     Returns:
-        str: A randomly generated hex string.
+        str: Hex string with '0x' prefix.
     """
-    alphabet = string.hexdigits.lower()[:16]   # '0123456789abcdef'
-    return '0x' + ''.join(random.choices(alphabet, k=64))
+    if bits not in (160, 256):
+        raise ValueError("Only 160 or 256 bits supported.")
+    return '0x' + secrets.token_hex(bits // 8)
 
-
+    
 def explain_hex_to_bin(hex_str: str) -> None:
     """
     Prints a per-character view of a 64-character hex string as 4-bit binary chunks.
@@ -234,3 +248,246 @@ def hash_to_hex256(word: str) -> str:
     """
     hash_bytes = hashlib.sha256(word.encode()).digest()
     return '0x' + hash_bytes.hex()
+
+
+# === Features of Order ===
+
+def generate_balanced_hash(bits: int = 256) -> str:
+    """
+    Generates a balanced hex string (equal number of 0 and 1 bits) of specified bit length.
+    Supports 160-bit (e.g., Ethereum addresses) and 256-bit hashes.
+
+    Args:
+        bits (int): Total number of bits. Must be even. Common values: 160 or 256.
+
+    Returns:
+        str: A balanced hex string with '0x' prefix.
+    """
+    if bits % 2 != 0:
+        raise ValueError("Bit length must be even for balanced generation.")
+    if bits not in (160, 256):
+        raise ValueError("Only 160-bit and 256-bit supported for now.")
+
+    from secrets import SystemRandom
+    random_gen = SystemRandom()
+    bit_list = [0] * (bits // 2) + [1] * (bits // 2)
+    random_gen.shuffle(bit_list)
+
+    hex_string = ''
+    for i in range(0, bits, 4):
+        nibble = bit_list[i:i+4]
+        hex_digit = hex(int(''.join(map(str, nibble)), 2))[2:]
+        hex_string += hex_digit
+
+    return '0x' + hex_string
+
+
+def bit_ratio(hex_string: str, invert: bool = False, digits: int = 2) -> str:
+    """
+    Computes the ratio of zeros to ones (or vice versa) for any-length hex string.
+
+    Args:
+        hex_string (str): Hex string with '0x' prefix.
+        invert (bool): If True, computes 1/0 instead of 0/1.
+        digits (int): Decimal precision.
+
+    Returns:
+        str: Ratio (e.g., '1.00'), or 'Infinity' if denominator is 0.
+    """
+    bin_str = bin(int(hex_string[2:], 16))[2:]
+    total_bits = len(bin_str)
+    padded = bin_str.zfill((len(hex_string) - 2) * 4)  # pad up to nibble count
+
+    ones = padded.count('1')
+    zeros = padded.count('0')
+    numerator, denominator = (ones, zeros) if invert else (zeros, ones)
+
+    if denominator == 0:
+        return 'Infinity'
+    else:
+        ratio = Decimal(numerator) / Decimal(denominator)
+        return f"{ratio:.{digits}f}"
+
+
+def is_balanced(hex_string: str) -> bool:
+    """
+    Checks whether the given hex string has an equal number of 0 and 1 bits.
+
+    Args:
+        hex_string (str): Hex string with '0x' prefix.
+
+    Returns:
+        bool: True if number of 0s == number of 1s, else False.
+    """
+    bin_str = bin(int(hex_string[2:], 16))[2:]
+    padded = bin_str.zfill((len(hex_string) - 2) * 4)
+    return padded.count('0') == padded.count('1')
+
+
+def hex_to_bit_array(hex_string: str) -> list[int]:
+    """
+    Converts a hex string to a flat list of bits (MSB-first).
+
+    Args:
+        hex_string (str): Hex string with '0x' prefix.
+
+    Returns:
+        list[int]: Bit list of length 256 or 160, depending on input.
+    """
+    if hex_string.startswith('0x'):
+        hex_string = hex_string[2:]
+    return [int(bit) for h in hex_string for bit in bin(int(h, 16))[2:].zfill(4)]
+
+
+def hex_to_grid(hex_string: str) -> list[list[int]]:
+    """
+    Converts hex string to a grid representation: [ring][sector].
+
+    - For 256-bit hashes: 4 rings × 64 sectors.
+    - For 160-bit hashes: 4 rings × 40 sectors.
+
+    Args:
+        hex_string (str): Hex string with '0x' prefix.
+
+    Returns:
+        list[list[int]]: Bit grid as [ring][sector].
+    """
+    bits = hex_to_bit_array(hex_string)
+    bit_len = len(bits)
+    if bit_len == 256:
+        sectors, rings = 64, 4
+    elif bit_len == 160:
+        sectors, rings = 40, 4
+    else:
+        raise ValueError("Unsupported bit length. Must be 160 or 256.")
+
+    grid = [[0] * sectors for _ in range(rings)]
+    for sector in range(sectors):
+        for ring in range(rings):
+            bit_index = sector * rings + ring
+            grid[ring][sector] = bits[bit_index]
+    return grid
+
+
+def count_unique_passages(hex_string: str) -> int:
+    """
+    Counts how many unique radial passages exist in the mandala.
+    A passage is a connected path of zeros from the center (ring 0)
+    to the edge (ring N), using 4-directional adjacency.
+
+    Args:
+        hex_string (str): 160- or 256-bit hex string with '0x' prefix.
+
+    Returns:
+        int: Number of distinct passages from center to edge.
+    """
+    grid = hex_to_grid(hex_string)
+    rings = len(grid)
+    sectors = len(grid[0])
+    global_visited = [[False] * sectors for _ in range(rings)]
+    passage_count = 0
+
+    for start_sector in range(sectors):
+        if grid[0][start_sector] != 0 or global_visited[0][start_sector]:
+            continue
+
+        queue = deque()
+        local_visited = [[False] * sectors for _ in range(rings)]
+        queue.append((0, start_sector))
+
+        reached_edge = False
+        path_cells = []
+
+        while queue:
+            r, s = queue.popleft()
+            if local_visited[r][s] or grid[r][s] != 0:
+                continue
+
+            local_visited[r][s] = True
+            path_cells.append((r, s))
+
+            if r == rings - 1:
+                reached_edge = True
+
+            neighbors = [
+                (r + 1, s),                # outward
+                (r - 1, s),                # inward
+                (r, (s + 1) % sectors),    # clockwise
+                (r, (s - 1) % sectors),    # counterclockwise
+            ]
+
+            for nr, ns in neighbors:
+                if 0 <= nr < rings and not local_visited[nr][ns] and not global_visited[nr][ns] and grid[nr][ns] == 0:
+                    queue.append((nr, ns))
+
+        if reached_edge:
+            passage_count += 1
+            for r, s in path_cells:
+                global_visited[r][s] = True
+
+    return passage_count
+
+
+def generate_hash_with_passages(target_passages: int, bits: int = 256, max_attempts: int = 10000) -> str:
+    """
+    Attempts to generate a hash with the specified number of radial passages.
+
+    Args:
+        target_passages (int): Desired number of passages.
+        bits (int): Bit length: 160 or 256.
+        max_attempts (int): Maximum attempts before giving up.
+
+    Returns:
+        str: Hash with '0x' prefix matching the passage count.
+
+    Raises:
+        ValueError: If no matching hash is found.
+    """
+    for _ in range(max_attempts):
+        candidate = generate_random_hash(bits)
+        if count_unique_passages(candidate) == target_passages:
+            return candidate
+    raise ValueError(f"No {bits}-bit hash with {target_passages} passages found in {max_attempts} attempts.")
+
+
+def passage_distribution(sample_size: int = 10000, bits: int = 256) -> list[int]:
+    """
+    Generates a sample of random hashes and computes the number of radial passages
+    in the corresponding mandala for each hash.
+
+    Args:
+        sample_size (int): Number of random hashes to generate.
+        bits (int): Bit length of hashes to generate (commonly 160 or 256).
+
+    Returns:
+        list[int]: List of passage counts, one per generated hash.
+    """
+    results = []
+    for _ in range(sample_size):
+        h = generate_random_hash(bits=bits)
+        p = count_unique_passages(h)
+        results.append(p)
+    return results
+
+
+def generate_hash_dataframe(n: int = 10000, bits: int = 256) -> pd.DataFrame:
+    """
+    Generates a DataFrame with random hashes and their associated features:
+    - Whether the hash is balanced (equal number of 0s and 1s)
+    - How many radial passages the mandala contains
+
+    Args:
+        n (int): Number of hashes to generate.
+        bits (int): Bit length of each hash (typically 160 or 256).
+
+    Returns:
+        pd.DataFrame: DataFrame with columns: hash, is_balanced, num_passages
+    """
+    data = []
+    for _ in range(n):
+        h = generate_random_hash(bits=bits)
+        balanced = is_balanced(h)
+        passages = count_unique_passages(h)
+        data.append((h, balanced, passages))
+
+    return pd.DataFrame(data, columns=["hash", "is_balanced", "num_passages"])
