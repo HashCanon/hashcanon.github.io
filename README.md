@@ -64,3 +64,13 @@ Perfect for demonstrating deterministic randomness and testing the visual rhythm
 [**Open the HashJing demo**](https://datasattva.github.io/hashjing/)
 
 You can also supply your own hash value; see the example code in [WhitePaper.ipynb](https://github.com/DataSattva/hashjing/blob/main/WhitePaper.ipynb).
+
+## License
+
+- All source code in this repository is released under the [MIT License](https://github.com/DataSattva/hashjing/blob/main/LICENSE-MIT.md).
+- All visual outputs, including SVG mandalas and image-based documentation, are licensed under [CC BY-NC 4.0](https://github.com/DataSattva/hashjing/blob/main/LICENSE-CCBYNC.md).
+
+You're free to use, remix, and redistribute the project — including generated art — for **non-commercial purposes**, with proper attribution.
+
+
+
