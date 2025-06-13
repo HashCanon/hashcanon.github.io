@@ -1,7 +1,8 @@
 # **HashJing: The Shape of Chance — An Art Manifesto**
 
-> 空即是色，色即是空。 
-> *Emptiness is form, and form is emptiness.*  
+> 空即是色，色即是空。
+>  
+> *form* itself is *emptiness*, and *emptiness* itself is *form*.  
 > *(Heart Sūtra)*
 
 ## The Mandala of Randomness
@@ -43,9 +44,9 @@ Is there order inside a random mandala?
 
 The probability that a 64-symbol hex string contains the exact rising sequence `0123456789abcdef` is
 
-```
-P = 49 × 16<sup>-16</sup> ≈ 2.7 × 10<sup>-18</sup>
-```
+$$
+P = 49 \times 16^{-16} \approx 2.7 \times 10^{-18}
+$$
 
 Mathematics allows it.
 Practice—almost never.
