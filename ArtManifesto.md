@@ -1,8 +1,7 @@
 # **HashJing: The Shape of Chance — An Art Manifesto**
 
-> 空即是色，色即是空。
->  
-> *form* itself is *emptiness*, and *emptiness* itself is *form*.  
+> 空即是色，色即是空。  
+> *Form* itself is *emptiness*, and *emptiness* itself is *form*.  
 > *(Heart Sūtra)*
 
 ## The Mandala of Randomness
