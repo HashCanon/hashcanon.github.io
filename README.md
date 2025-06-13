@@ -31,17 +31,19 @@ A mandala becomes a frame for contemplating entropy, symmetry, rarity, and the v
 ## Project layout
 
 ```text
-├── index.html                 # Demo (HTML + Canvas)
-├── ArtManifesto.md            # Artistic statement
-├── README.md                  # You are here
-├── WhitePaper.ipynb           # Technical notebook
-├── FamousBlockchainHashes.ipynb # Iconic blockchain hashes
+├── README.md                    # 1. Entry point
+├── WhitePaper.ipynb             # 2. Technical deep-dive
+├── ArtManifesto.md              # 3. Artistic statement
+├── FamousBlockchainHashes.ipynb # 4. Gallery of landmark hashes
+├── index.html                   # 5. Live demo (HTML + Canvas)
+├── LICENSE-MIT.md               # MIT license for source code
+├── LICENSE-CCBYNC.md            # CC BY-NC 4.0 for visuals & docs
 ├── hash_utils/
 │   ├── __init__.py
-│   └── base_hash.py           # Hex→binary conversion, drawing logic
-├── pic/
-│   ├── hashjing_mandala.png   # Example mandala
-│   └── yi_circle.jpg          # Historical *Yì Jīng* diagram
+│   └── base_hash.py             # Hex-to-binary conversion & drawing logic
+└── pic/
+    ├── hashjing_mandala.png     # Example mandala
+    └── yi_circle.jpg            # 64-hexagram diagram
 ```
 
 ## Further reading
