@@ -4,6 +4,7 @@ import pandas as pd
 import random, string, hashlib, secrets
 from decimal import Decimal
 from collections import deque
+from Crypto.Hash import keccak
 
 __all__ = [
     "generate_random_hash",
@@ -11,7 +12,7 @@ __all__ = [
     "hex_to_binary_grid_corrected",
     "draw_binary_grid_from_hex_dark",
     "draw_mandala",
-    "hash_to_hex256",
+    "hash_to_hex",
     "generate_balanced_hash",
     "bit_ratio",
     "is_balanced",
@@ -22,19 +23,33 @@ __all__ = [
 ]
 
 
-def generate_random_hash(bits: int = 256) -> str:
+def generate_random_hash(bits: int = 256, algo: str = 'sha256') -> str:
     """
     Generates a cryptographically secure hex string of the specified bit length.
+    Supports SHA-256 and Keccak-based entropy sources (using pycryptodome).
 
     Args:
-        bits (int): Bit length. Common values: 160 or 256.
+        bits (int): Bit length. Must be 160 or 256.
+        algo (str): Hash algorithm for entropy. Options: 'sha256' (default), 'keccak'.
 
     Returns:
         str: Hex string with '0x' prefix.
     """
     if bits not in (160, 256):
         raise ValueError("Only 160 or 256 bits supported.")
-    return '0x' + secrets.token_hex(bits // 8)
+
+    if algo == 'keccak':
+        entropy = secrets.token_bytes(32)
+        k = keccak.new(digest_bits=256)
+        k.update(entropy)
+        digest = k.digest()
+        return '0x' + digest[:bits // 8].hex()
+
+    elif algo == 'sha256':
+        return '0x' + secrets.token_hex(bits // 8)
+
+    else:
+        raise ValueError("Unsupported algorithm. Use 'sha256' or 'keccak'.")
 
     
 def explain_hex_to_bin(hex_str: str) -> None:
@@ -236,18 +251,35 @@ def draw_mandala(hex_string, inner_radius=0.32, show_radial_line=False, sectors=
     plt.show()
 
 
-def hash_to_hex256(word: str) -> str:
+def hash_to_hex(word: str, bits: int = 256, algo: str = 'sha256') -> str:
     """
-    Returns the SHA-256 hash of a string as a hex string with '0x' prefix.
+    Returns a hash of a string as a hex string with '0x' prefix.
+    Supports SHA-256 and Keccak (Ethereum), and both 256-bit and 160-bit lengths.
 
     Args:
         word (str): Input string.
+        bits (int): Desired bit length (160 or 256).
+        algo (str): Hash algorithm to use: 'sha256' (default) or 'keccak'.
 
     Returns:
-        str: SHA-256 hash in hex format.
+        str: Hex-encoded hash string with '0x' prefix.
     """
-    hash_bytes = hashlib.sha256(word.encode()).digest()
-    return '0x' + hash_bytes.hex()
+    if bits not in (160, 256):
+        raise ValueError("Only 160 and 256 bits supported.")
+
+    if algo == 'keccak':
+        k = keccak.new(digest_bits=256)
+        k.update(word.encode())
+        full_hash = k.digest()
+    elif algo == 'sha256':
+        full_hash = hashlib.sha256(word.encode()).digest()
+    else:
+        raise ValueError("Unsupported algorithm. Use 'sha256' or 'keccak'.")
+
+    if bits == 160:
+        full_hash = full_hash[-20:]
+
+    return '0x' + full_hash.hex()
 
 
 # === Features of Order ===

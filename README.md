@@ -11,8 +11,11 @@
 
 ## What it does
 
-HashJing converts 256-bit strings—for example, Ethereum or Bitcoin hashes, or any cryptographically secure seed—into **mandalas**: circular diagrams with 64 sectors and four concentric rings.
-Each sector represents one hex character; each ring, one of that character’s four bits. The visualisation therefore encodes the entire hash, deterministically and unambiguously.
+HashJing converts cryptographic hash strings—typically **256-bit** (e.g. SHA-256), but optionally also **160-bit** (e.g. Ethereum address format)—into **mandalas**: circular diagrams composed of sectors and concentric rings.
+Each sector represents a single hex character; each ring corresponds to one of that character’s four bits.
+A **256-bit** hash results in a mandala with **64 sectors**, while a **160-bit** hash yields **40 sectors**. The visualization deterministically encodes the full binary structure.
+
+By default, HashJing uses the SHA-256 algorithm for hash generation, but **Keccak-256** (used in Ethereum) is also supported as an optional alternative.
 
 **Address support.** HashJing can also visualise 160-bit Ethereum addresses (wallets or contracts); an address appears as a mandala with 40 sectors.
 
