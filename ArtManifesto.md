@@ -1,13 +1,13 @@
 # **HashJing: The Shape of Chance — An Art Manifesto**
 
-> 空即是色，色即是空
-> *Emptiness is form, and form is emptiness.*
+> 空即是色，色即是空。 
+> *Emptiness is form, and form is emptiness.*  
 > *(Heart Sūtra)*
 
 ## The Mandala of Randomness
 
 **HashJing** is a conceptual meditation on the nature of chance and order.
-We take a 256-bit string—a cryptographically secure seed or the hash of any token—and turn it into a **mandala of randomness** made of 64 sectors (one per hex symbol) and four concentric rings (one per bit in the symbol).
+We take a 256-bit string a cryptographically secure seed or the hash of any token—and turn it into a **mandala of randomness** made of 64 sectors (one per hex symbol) and four concentric rings (one per bit in the symbol).
 
 <figure markdown>
 <img src="pic/hashjing_mandala.png" alt="Mandala generated from the SHA-256 hash of the project name ‘HashJing’"/>
@@ -20,10 +20,10 @@ Each hash becomes an image; each segment, an imprint of choice—a form distille
 
 HashJing is inspired by two threads:
 
-* **Data inquiry**—probability, structure, statistical fluctuation;
+* **Data inquiry** — probability, structure, statistical fluctuation;
 * **The binary logic of the *Yì Jīng*** (易经), where change is mapped by 64 hexagrams.
 
-A hash is a **cast of a unique state**. Its exact structure will *almost* never repeat.
+A hash is a **casting of a unique state**. Its exact structure will *almost* never repeat.
 Yet in that noise something more can emerge: symmetry, echo, quasi-order.
 At such moments we do more than look—we **witness an event**. We discover an artefact.
 
@@ -44,7 +44,7 @@ Is there order inside a random mandala?
 The probability that a 64-symbol hex string contains the exact rising sequence `0123456789abcdef` is
 
 ```
-P = 49 × 16^-16 ≈ 2.7 × 10^-18
+P = 49 × 16<sup>-16</sup> ≈ 2.7 × 10<sup>-18</sup>
 ```
 
 Mathematics allows it.
