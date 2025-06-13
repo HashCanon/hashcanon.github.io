@@ -1,77 +1,72 @@
 # HashJing
 
-**HashJing** is a generative-art project that explores the boundary between randomness and order through the visual language of 256-bit hashes. The work is inspired by binary logic, cryptography, and the symbolism of the *Yì Jīng*—the ancient Chinese *Book of Changes*.
+**HashJing** is a generative-art project that explores the boundary between randomness and order through a visual language derived from cryptographic hashes. The work draws on binary logic, modern cryptography, and the symbolism of the *Yì Jīng*—the ancient Chinese *Book of Changes*.
 
 <figure markdown>
-<img src="pic/hashjing_mandala.png" alt="Mandala generated from the SHA-256 hash of the project name “HashJing”"/>
+<img src="pic/hashjing_mandala.png" alt="Mandala generated from the SHA-256 hash of the string “HashJing”"/>
 </figure>
 
-*Mandala generated from the SHA-256 hash of the project name “HashJing”:*
+*Mandala generated from the SHA-256 hash of “HashJing”*  
 `0x2b054d225d025fc24c58030bda276b16089ae21cc8aff93d2751472a98eab06c`
 
 ## What it does
 
-HashJing converts cryptographic hash strings—typically **256-bit** (e.g. SHA-256), but optionally also **160-bit** (e.g. Ethereum address format)—into **mandalas**: circular diagrams composed of sectors and concentric rings.
-Each sector represents a single hex character; each ring corresponds to one of that character’s four bits.
-A **256-bit** hash results in a mandala with **64 sectors**, while a **160-bit** hash yields **40 sectors**. The visualization deterministically encodes the full binary structure.
+HashJing converts cryptographic hash strings—typically **256-bit** (SHA-256) and optionally **160-bit** (Ethereum address format)—into **mandalas**: circular diagrams formed by sectors and concentric rings.  
+Each sector corresponds to one hex character; each ring captures one of that character’s four bits. Thus a 256-bit hash yields **64 sectors**, while a 160-bit hash yields **40**. The mapping is fully deterministic: **one hash → one form**.
 
-By default, HashJing uses the SHA-256 algorithm for hash generation, but **Keccak-256** (used in Ethereum) is also supported as an optional alternative.
+Default hashing uses SHA-256; **Keccak-256** (the Ethereum variant) is available as an option.
 
-**Address support.** HashJing can also visualise 160-bit Ethereum addresses (wallets or contracts); an address appears as a mandala with 40 sectors.
+**Address support** – any 160-bit Ethereum address (wallet or contract) can be visualized as a 40-sector mandala.
 
-A mandala becomes a frame for contemplation—of entropy, symmetry, rarity, and the visual face of probability.
+A mandala becomes a frame for contemplating entropy, symmetry, rarity, and the visible face of probability.
 
 ## Core ideas
 
-* Binary patterns as a visual language
-* Randomness as an observable structure
-* Parallels with the 64 hexagrams of the *Yì Jīng*
-* The hash as a seal—an imprint of choice
-* Complete determinism: one hash → one form
+* Binary patterns as a visual language  
+* Randomness rendered observable  
+* Parallels with the 64 hexagrams of the *Yì Jīng*  
+* The hash as a seal—an imprint of choice  
+* Complete determinism
 
 ## Project layout
 
 ```text
-├── index.html                 # Demo page (HTML + Canvas)
-├── ArtManifesto.md            # Artistic manifesto
+├── index.html                 # Demo (HTML + Canvas)
+├── ArtManifesto.md            # Artistic statement
 ├── README.md                  # You are here
-├── WhitePaper.ipynb           # Technical white-paper (Jupyter Notebook)
-├── FamousHashes.ipynb         # Visualisation of famous blockchain hashes
-├── hash_utils/                # Core Python module
+├── WhitePaper.ipynb           # Technical notebook
+├── FamousBlockchainHashes.ipynb # Iconic blockchain hashes
+├── hash_utils/
 │   ├── __init__.py
 │   └── base_hash.py           # Hex→binary conversion, drawing logic
-├── pic/                       # Static images & reference diagrams
+├── pic/
 │   ├── hashjing_mandala.png   # Example mandala
-│   └── yi_circle.jpg          # Historical *Yì Jīng* arrangement
+│   └── yi_circle.jpg          # Historical *Yì Jīng* diagram
 ```
 
 ## Further reading
 
-* [**ArtManifesto.md**](https://github.com/DataSattva/hashjing/blob/main/ArtManifesto.md) – the philosophical core.
-  Explains HashJing as a way to embody the “shape of randomness,” fusing cryptography, the *Yì Jīng*, and digital aesthetics. Here the mandala is not ornament but the geometry of entropy.
+* [**ArtManifesto.md**](https://github.com/DataSattva/hashjing/blob/main/ArtManifesto.md) – philosophical background; HashJing as “the shape of randomness.”
 
-* [**WhitePaper.ipynb**](https://github.com/DataSattva/hashjing/blob/main/WhitePaper.ipynb) – the technical paper.  
-  Details the hash structure, the visual-mapping rules (including the 160-bit address variant), and demonstrates the main drawing function `draw_mandala`.  
-  It also introduces higher-level *features of order* such as passage count and bit balance, and explores their statistical distribution in randomly generated hashes.
+* [**WhitePaper.ipynb**](https://github.com/DataSattva/hashjing/blob/main/WhitePaper.ipynb) – technical details, mapping rules, statistical features.
 
-* [**FamousHashes.ipynb**](https://github.com/DataSattva/hashjing/blob/main/FamousHashes.ipynb) – mandalas of iconic hashes.
-  Shows the Genesis block of Bitcoin, the CryptoPunks contract address, and other historically or culturally significant hashes, illustrating how an abstract string becomes a visual signature.
+* [**FamousBlockchainHashes.ipynb**](https://github.com/DataSattva/hashjing/blob/main/FamousBlockchainHashes.ipynb) – mandalas of Genesis blocks, landmark contracts, and other culturally significant hashes.
 
 ## Demo page
 
-`index.html` is a simple HTML/Canvas page. Each time it loads it generates a random 256-bit hash and draws its mandala automatically.
+`index.html` is a self-contained HTML/Canvas demo. Each reload generates a new random 256-bit hash and draws its mandala—no user input required.
 
 **No user input required**—just reload the page to see a new mandala.
 Perfect for demonstrating deterministic randomness and testing the visual rhythm of hashes.
 
 [**Open the HashJing demo**](https://datasattva.github.io/hashjing/)
 
-You can also supply your own hash value; see the example code in [WhitePaper.ipynb](https://github.com/DataSattva/hashjing/blob/main/WhitePaper.ipynb).
+Custom hashes can be supplied via the code examples in [WhitePaper.ipynb](https://github.com/DataSattva/hashjing/blob/main/WhitePaper.ipynb).
 
 ## License
 
-- All source code in this repository is released under the [MIT License](https://github.com/DataSattva/hashjing/blob/main/LICENSE-MIT.md).
-- All visual outputs, including SVG mandalas and image-based documentation, are licensed under [CC BY-NC 4.0](https://github.com/DataSattva/hashjing/blob/main/LICENSE-CCBYNC.md).
+- Code: [MIT License](https://github.com/DataSattva/hashjing/blob/main/LICENSE-MIT.md).
+- Visual outputs and documentation: [CC BY-NC 4.0](https://github.com/DataSattva/hashjing/blob/main/LICENSE-CCBYNC.md).
 
 You're free to use, remix, and redistribute the project — including generated art — for **non-commercial purposes**, with proper attribution.
 

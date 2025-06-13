@@ -9,7 +9,6 @@ from Crypto.Hash import keccak
 __all__ = [
     "generate_random_hash",
     "explain_hex_to_bin",
-    "hex_to_binary_grid_corrected",
     "draw_binary_grid_from_hex_dark",
     "draw_mandala",
     "hash_to_hex",
@@ -146,21 +145,6 @@ def draw_binary_grid_from_hex_dark(hex_str: str, show_guides: bool = True) -> No
     ax.set_ylim(-0.5, 3.5)
     plt.tight_layout()
     plt.show()
-
-
-def hex_to_bit_array(hex_string):
-    """
-    Converts a hex string to a flat array of bits.
-
-    Args:
-        hex_string (str): Hex string with or without '0x'.
-
-    Returns:
-        list[int]: List of 256 bits (64 hex chars × 4 bits).
-    """
-    if hex_string.startswith('0x'):
-        hex_string = hex_string[2:]
-    return [int(bit) for h in hex_string for bit in bin(int(h, 16))[2:].zfill(4)]
 
 
 def pad_hex_to_64(hex_string: str) -> str:

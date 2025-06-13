@@ -1,24 +1,18 @@
-Creative Commons Attribution-NonCommercial 4.0 International (CC BY-NC 4.0)
+## Creative Commons Attribution – NonCommercial 4.0 International (CC BY-NC 4.0)
 
-You are free to:
+You are free to  
+• **Share** — copy and redistribute the material in any medium or format  
+• **Adapt** — remix, transform, and build upon the material  
 
-• Share — copy and redistribute the material in any medium or format  
-• Adapt — remix, transform, and build upon the material
-
-Under the following terms:
-
-– Attribution — You must give appropriate credit, provide a link to the license, and indicate if changes were made.  
-  You may do so in any reasonable manner, but not in any way that suggests the licensor endorses you or your use.
-
-– NonCommercial — You may not use the material for commercial purposes.
-
-– No additional restrictions — You may not apply legal terms or technological measures that legally restrict others from doing anything the license permits.
+Under the following terms  
+• **Attribution** — give appropriate credit, link to the license, and indicate changes  
+• **NonCommercial** — you may not use the material for commercial purposes  
+• **No additional restrictions** — you may not apply legal or technical measures that limit others from doing what this license permits  
 
 ---
 
-**Additional Terms:**
+### Additional clarification
 
-Commercial use of any visual output (including resale, merchandise, or NFTs) is strictly prohibited without written permission.  
-The creator (**DataSattva**) retains the exclusive right to commercially distribute derived works.
+Commercial use of any visual output (including resale, merchandise, or NFTs) remains prohibited under the NC clause unless written permission is obtained. The creator (**DataSattva**) retains the exclusive right to grant such permission.
 
-Full license text: https://creativecommons.org/licenses/by-nc/4.0/
+Full license text: <https://creativecommons.org/licenses/by-nc/4.0/>
