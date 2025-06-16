@@ -12,7 +12,13 @@
   </div>
   <div id="svg-container"></div>
 
+  <div id="download-buttons">
+    <button onclick="downloadSVG()">Download SVG</button>
+    <button onclick="downloadPNG()">Download PNG</button>
+  </div>
+
   <div id="mandala-section">
+      
     <h2 class="section-title">Mandala Generate</h2>
 
     <div id="mandala-controls" class="controls">
@@ -30,15 +36,12 @@
         <label><input type="radio" name="hashBits" value="160"> 160-bit</label>
       </div>
 
-      <div id="status" class="status"></div>  
+      <div id="status" class="status"></div> 
 
       <div>
         <button onclick="generate()" class="wide-button green-button">Generate</button>
       </div> 
 
-      <div id="download-buttons">
-        <button onclick="downloadSVG()">Download SVG</button>
-      </div>
     </div>
   </div>
 

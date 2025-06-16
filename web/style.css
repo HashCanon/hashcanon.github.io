@@ -87,7 +87,12 @@ html {
   font-family: monospace;
   font-size: 0.9em;
   text-align: center;
+
+  white-space: normal;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
 }
+
 
 /* Radio-кнопки: Hash type */
 .hash-type-inline {
@@ -123,8 +128,9 @@ html {
 #download-buttons {
   display: flex;
   justify-content: center;
+  gap: 10px;
   margin-top: 10px;
-  margin-bottom: 0px;
+  margin-bottom: 20px;
 }
 
 #download-buttons button {
@@ -142,6 +148,12 @@ html {
   text-decoration: underline;
   color: #0077cc;
   cursor: pointer;
+}
+
+ {
+  text-align: left;
+  padding-left: 1em;
+  line-height: 1.6;
 }
 
 #features-content, #about-content {

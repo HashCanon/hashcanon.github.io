@@ -206,3 +206,41 @@ function countPassagesFromHex(hexString) {
 
   return passageCount;
 }
+
+function downloadPNG() {
+  const svgElement = document.querySelector("#svg-container svg");
+  if (!svgElement) return;
+
+  const serializer = new XMLSerializer();
+  const svgString = serializer.serializeToString(svgElement);
+  const svgBlob = new Blob([svgString], { type: "image/svg+xml;charset=utf-8" });
+  const url = URL.createObjectURL(svgBlob);
+
+  const canvasSize = 1024;
+  const canvas = document.createElement("canvas");
+  canvas.width = canvasSize;
+  canvas.height = canvasSize;
+  const ctx = canvas.getContext("2d");
+
+  const img = new Image();
+  img.onload = () => {
+    // полностью очистим и отрисуем изображение точно по центру
+    ctx.clearRect(0, 0, canvasSize, canvasSize);
+    ctx.drawImage(img, 0, 0, canvasSize, canvasSize);
+
+    URL.revokeObjectURL(url);
+
+    const a = document.createElement("a");
+    a.download = "hashjing-mandala.png";
+    a.href = canvas.toDataURL("image/png");
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+  };
+
+  // Важно: задать CORS для корректной отрисовки
+  img.crossOrigin = "anonymous";
+  img.src = url;
+}
+
+
