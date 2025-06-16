@@ -1,0 +1,155 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+  background: white;
+  height: auto;
+  overflow: auto;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+#title {
+  position: sticky;
+  top: 0;
+  width: 100%;
+  text-align: center;
+  background: white;
+  padding: 12px 0;
+  font-size: 1.8em;
+  font-weight: bold;
+  z-index: 10;
+}
+
+#svg-container {
+  margin: 20px auto 20px auto;
+  display: block;
+}
+
+#svg-container svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* Базовые стили для всех секций */
+#mandala-section, #features, #about {
+  max-width: 800px;
+  width: 90%;
+  margin: 40px auto;
+  padding: 0 10px;
+}
+
+.section-title {
+  text-align: center;
+  font-size: 1.4em;
+  margin-bottom: 10px;
+}
+
+/* Универсальные стили для всех управляющих блоков */
+.controls {
+  text-align: center;
+  padding: 0;
+}
+
+.controls textarea,
+.controls input {
+  width: calc(100% - 20px);
+  max-width: 100%;
+  padding: 6px;
+  margin: 10px 0;
+  font-family: monospace;
+  font-size: 0.9em;
+  box-sizing: border-box;
+}
+
+.controls button {
+  padding: 6px 12px;
+  margin-left: 10px;
+  font-size: 0.9em;
+}
+
+.controls .wide-button {
+  width: calc(100% - 20px);
+  max-width: 100%;
+  padding: 8px;
+  margin: 10px 0;
+  font-size: 1em;
+  font-weight: bold;
+  cursor: pointer;
+  box-sizing: border-box;
+}
+
+.controls .status {
+  margin: 10px 0;
+  font-family: monospace;
+  font-size: 0.9em;
+  text-align: center;
+}
+
+/* Radio-кнопки: Hash type */
+.hash-type-inline {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  margin-top: 10px;
+  font-size: 0.9em;
+  white-space: nowrap;
+}
+
+.hash-type-inline label {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+/* Кнопка Generate */
+.green-button {
+  background-color: #28a745;
+  color: white;
+  border: none;
+  transition: background-color 0.2s ease;
+  border-radius: 4px;
+}
+
+.green-button:hover {
+  background-color: #218838;
+}
+
+/* Кнопка Download SVG */
+#download-buttons {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+  margin-bottom: 0px;
+}
+
+#download-buttons button {
+  all: revert;
+  cursor: pointer;
+}
+
+#about-link {
+  text-align: center;
+  margin: 0px auto 0px;
+  font-size: 1em;
+}
+
+#about-link a {
+  text-decoration: underline;
+  color: #0077cc;
+  cursor: pointer;
+}
+
+#features-content, #about-content {
+  text-align: left;
+  padding-left: 1em;
+  line-height: 1.6;
+}
+
+
+
+

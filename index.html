@@ -2,119 +2,97 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>HashJing Test</title>
-  <style>
-    html, body {
-      margin: 0;
-      padding: 0;
-      width: 100vw;
-      height: 100vh;
-      background: white;
-    }
-
-    svg {
-      display: block;
-      width: 100vw;
-      height: 100vh;
-    }
-  </style>
+  <title>HashJing Mandala</title>
+  <link rel="stylesheet" href="web/style.css">
 </head>
 <body>
-  <script>
-    // Random hash generation (64 hex)
-    function generateRandomHash() {
-      const hex = "0123456789abcdef";
-      let result = "0x";
-      for (let i = 0; i < 64; i++) {
-        result += hex[Math.floor(Math.random() * 16)];
-      }
-      return result;
-    }
+  <div id="title">HashJing Mandala</div>
+  <div id="about-link">
+    <a href="#about">About HashJing Project</a>
+  </div>
+  <div id="svg-container"></div>
 
-    const tokenData = {
-      hash: generateRandomHash(),
-      tokenId: "test123"
-    };
+  <div id="mandala-section">
+    <h2 class="section-title">Mandala Generate</h2>
 
-    (function () {
-      const hash = tokenData.hash;
-      const canvasSize = 1024;
-      const cx = canvasSize / 2;
-      const cy = canvasSize / 2;
-      const sectors = 64;
-      const rings = 4;
-      const angleStep = (2 * Math.PI) / sectors;
-      const radiusStep = 80;
-      const baseRadius = 160;
+    <div id="mandala-controls" class="controls">
+      <div>
+        <input type="text" id="hashInput" placeholder="Enter 0x... custom hash (64 hex chars)">
+      </div> 
 
-      function hexToBitArray(hex) {
-        return hex.slice(2).split('').flatMap(h =>
-          parseInt(h, 16).toString(2).padStart(4, '0').split('').map(Number)
-        );
-      }
+      <div style="margin-top: 8px;">
+        <textarea id="textInput" placeholder="Or enter text to hash..." rows="3"></textarea>
+      </div>      
 
-      function polarToCartesian(cx, cy, r, angle) {
-        return {
-          x: cx + r * Math.cos(angle),
-          y: cy + r * Math.sin(angle)
-        };
-      }
+      <div class="hash-type-inline">
+        <span>Hash type:</span>
+        <label><input type="radio" name="hashBits" value="256" checked> 256-bit</label>
+        <label><input type="radio" name="hashBits" value="160"> 160-bit</label>
+      </div>
 
-      function generateSectorPath(i, j) {
-        const angleStart = i * angleStep - Math.PI / 2;
-        const angleEnd = angleStart + angleStep;
-        const rInner = (3 - j) * radiusStep + baseRadius;
-        const rOuter = rInner + radiusStep;
+      <div id="status" class="status"></div>  
 
-        const a0 = polarToCartesian(cx, cy, rInner, angleStart);
-        const a1 = polarToCartesian(cx, cy, rInner, angleEnd);
-        const b1 = polarToCartesian(cx, cy, rOuter, angleEnd);
-        const b0 = polarToCartesian(cx, cy, rOuter, angleStart);
+      <div>
+        <button onclick="generate()" class="wide-button green-button">Generate</button>
+      </div> 
 
-        return [
-          `M ${a0.x} ${a0.y}`,
-          `A ${rInner} ${rInner} 0 0 1 ${a1.x} ${a1.y}`,
-          `L ${b1.x} ${b1.y}`,
-          `A ${rOuter} ${rOuter} 0 0 0 ${b0.x} ${b0.y}`,
-          "Z"
-        ].join(' ');
-      }
+      <div id="download-buttons">
+        <button onclick="downloadSVG()">Download SVG</button>
+      </div>
+    </div>
+  </div>
 
-      function drawMandala(bits, hex) {
-        const bgRect = `<rect x="0" y="0" width="${canvasSize}" height="${canvasSize}" fill="black"/>`;
-        const paths = [];
+  <div id="features">
+    <h2 class="section-title">Features of Order</h2>
+    <div id="features-content" class="controls"></div>
+  </div>
 
-        for (let i = 0; i < sectors; i++) {
-          const bin = bits.slice(i * 4, (i + 1) * 4).reverse();
-          for (let j = 0; j < rings; j++) {
-            const path = generateSectorPath(i, j);
-            const fill = bin[j] === 1 ? "white" : "black";
-            const stroke = "black";
-            paths.push(`<path d="${path}" fill="${fill}" stroke="${stroke}" stroke-width="1"/>`);
-          }
-        }
+        <div id="about">
+          <h2 class="section-title">About HashJing Project</h2>
+          <div id="about-content" class="controls">
+            <p>
+              <strong>HashJing</strong> is a philosophical and aesthetic experiment at the intersection of generative art, cryptography, and East Asian symbolism. 
+              The name fuses “hash” (a unique digital fingerprint) with the Chinese character <strong>經</strong> <em>jīng</em> — “canon” or “classical text.” 
+              In other words, this is a “Canon of the Hash”: a deterministic structure where entropy gives rise to order.
+            </p>
+            <p>
+              A full 256-bit hash is rendered as a <strong>mandala of 64 radial sectors and 4 concentric layers</strong>: one hex digit per sector, one bit per layer.
+              For shorter 160-bit inputs (such as Ethereum addresses), the system draws 40 sectors using the same logic and visual grammar.
+            </p>
+            <p>
+              This numerical-to-visual transformation raises a set of reflective questions: Can randomness produce symbolic form? 
+              Are cryptographic structures modern ideograms? Where is the boundary between entropy and canon? 
+              The system draws from the <strong>64 hexagrams of the I&nbsp;Ching</strong> and Daoist cosmology (Wújí → Tàijí) to connect 
+              contemporary data to a long tradition of contemplating pattern and change.
+            </p>
+            <p>
+              This page includes:
+            </p>
+            <ul>
+              <li>
+                <strong>Mandala SVG</strong> — a visual representation generated from any 256- or 160-bit hash.
+                Each bit of the hash determines a black or white segment within a 64- or 40-sector radial mandala. 
+                The result is a unique geometric fingerprint—an image born from entropy.
+              </li>
+              <li>
+                <strong>Mandala Generate</strong> — an interactive interface that lets you create mandalas 
+                from custom hexadecimal hashes or arbitrary text input (which is hashed using SHA-256). 
+                Useful for both exploring patterns and testing specific values.
+              </li>
+              <li>
+                <strong>Features of Order</strong> — automatic analysis of the hash structure: 
+                checks if the number of 0s and 1s is perfectly balanced, 
+                counts “passages” (continuous paths from center to edge formed by zeros), 
+                and detects rare “sealed” configurations where no such path exists.
+              </li>
+            </ul>
+            <p>
+              For full mathematical and conceptual details, see the <a href="https://github.com/DataSattva/hashjing/blob/main/WhitePaper.ipynb" target="_blank">WhitePaper</a>.
+            </p>
+          </div>
+        </div>
 
-        const square = hex.slice(2).match(/.{1,16}/g);
-        const textElements = square.map((line, i) => {
-          const y = cy - 45 + i * 36;
-          return `<text x="${cx}" y="${y}" font-size="22" fill="white" text-anchor="middle" font-family="monospace">${line}</text>`;
-        });
-
-        const svg = `
-          <svg xmlns="http://www.w3.org/2000/svg"
-               viewBox="0 0 ${canvasSize} ${canvasSize}"
-               width="100%" height="100%"
-               preserveAspectRatio="xMidYMid meet">
-            ${[bgRect, ...paths, ...textElements].join('\n')}
-          </svg>
-        `;
-
-        document.body.innerHTML = svg;
-      }
-
-      const bits = hexToBitArray(hash);
-      drawMandala(bits, hash);
-    })();
-  </script>
+  <script src="web/mandala.js"></script>
+  <script src="web/main.js"></script>
 </body>
 </html>

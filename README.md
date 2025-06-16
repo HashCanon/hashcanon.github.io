@@ -1,22 +1,24 @@
 # HashJing
 
-**HashJing** is a generative-art project that explores the boundary between randomness and order through a visual language derived from cryptographic hashes. The work draws on binary logic, modern cryptography, and the symbolism of the *Yì Jīng*—the ancient Chinese *Book of Changes*.
+**HashJing** is an open-source toolkit and aesthetic inquiry that sits where generative art meets modern cryptography and East-Asian symbolism.  
+By applying binary logic and ideas drawn from the *Yì Jīng*—the ancient *Book of Changes*—it turns any hash into a deterministic visual glyph, revealing the hidden patterns inside cryptographic entropy.
+
 
 <figure markdown>
-<img src="pic/hashjing_mandala.png" alt="Mandala generated from the SHA-256 hash of the string “HashJing”"/>
+<img src="pic/hashjing_mandala.png" alt="Mandala generated from the SHA‑256 hash of the string “HashJing”"/>
 </figure>
 
-*Mandala generated from the SHA-256 hash of “HashJing”*  
+*Mandala generated from the SHA‑256 hash of “HashJing”*  
 `0x2b054d225d025fc24c58030bda276b16089ae21cc8aff93d2751472a98eab06c`
 
 ## What it does
 
-HashJing converts cryptographic hash strings—typically **256-bit** (SHA-256) and optionally **160-bit** (Ethereum address format)—into **mandalas**: circular diagrams formed by sectors and concentric rings.  
-Each sector corresponds to one hex character; each ring captures one of that character’s four bits. Thus a 256-bit hash yields **64 sectors**, while a 160-bit hash yields **40**. The mapping is fully deterministic: **one hash → one form**.
+HashJing converts cryptographic hash strings—typically **256‑bit** (SHA‑256) and optionally **160‑bit** (Ethereum‑address format)—into **mandalas**: circular diagrams composed of radial sectors and concentric rings.  
+Each sector represents one hex character; each ring represents one of that character’s four bits. Thus a 256‑bit hash yields **64 sectors**, while a 160‑bit hash yields **40**. The mapping is fully deterministic: **one hash → one form**.
 
-Default hashing uses SHA-256; **Keccak-256** (the Ethereum variant) is available as an option.
+Default hashing uses SHA‑256; **Keccak‑256** (the Ethereum variant) is available as an option.
 
-**Address support** – any 160-bit Ethereum address (wallet or contract) can be visualized as a 40-sector mandala.
+**Address support** – any 160‑bit Ethereum address (wallet or contract) can be visualised as a 40‑sector mandala.
 
 A mandala becomes a frame for contemplating entropy, symmetry, rarity, and the visible face of probability.
 
