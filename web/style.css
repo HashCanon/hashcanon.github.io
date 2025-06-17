@@ -200,3 +200,19 @@ html { scroll-behavior: smooth; }
   text-align: left;   
   padding-left: 1em;  
 }
+
+/* dark-green only when there is a real hover device */
+@media (hover: hover) {
+  .green-button:hover { background: var(--green-dark); }
+}
+
+@media (orientation: portrait) {
+  #download-buttons button {
+    font-size: 0.9em;     /* меньше шрифт  */
+    padding: 6px 12px;    /* компактнее отступы */
+    line-height: 1.2;     /* убираем лишнюю высоту */
+    border: 1px solid #bbb;
+    border-radius: 4px;
+    background: #fff;
+  }
+}
