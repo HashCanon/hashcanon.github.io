@@ -1,58 +1,64 @@
+/* ---------- Global reset ---------- */
+*, *::before, *::after { box-sizing: border-box; }
+
+:root {
+  /* colour palette */
+  --green: #28a745;
+  --green-dark: #218838;
+  --blue-link: #0077cc;
+
+  /* layout */
+  --max-width: 800px;
+  --section-gap: 40px;
+}
+
+/* ---------- Basic document ---------- */
 html, body {
   margin: 0;
   padding: 0;
   font-family: sans-serif;
-  background: white;
+  background: #fff;
   height: auto;
   overflow: auto;
 }
+html { scroll-behavior: smooth; }
 
-html {
-  scroll-behavior: smooth;
-}
-
+/* ---------- Sticky page title ---------- */
 #title {
   position: sticky;
   top: 0;
-  width: 100%;
-  text-align: center;
-  background: white;
-  padding: 12px 0;
-  font-size: 1.8em;
-  font-weight: bold;
   z-index: 10;
-}
-
-#svg-container {
-  margin: 20px auto 20px auto;
-  display: block;
-}
-
-#svg-container svg {
   width: 100%;
-  height: 100%;
-  display: block;
+  padding: 12px 0;
+  text-align: center;
+  font: 700 1.8em/1 sans-serif;
+  background: #fff;
 }
 
-/* Базовые секции */
-#mandala-section, #features, #about {
-  max-width: 800px;
+/* ---------- SVG wrapper (unchanged) ---------- */
+#svg-container {
+  margin: 20px auto;
+  display: block;
+}
+#svg-container svg { width: 100%; height: 100%; display: block; }
+
+/* ---------- Main sections ---------- */
+#mandala-section,
+#features,
+#about {
   width: 90%;
-  margin: 40px auto;
+  max-width: var(--max-width);
+  margin: var(--section-gap) auto;
   padding: 0 10px;
 }
-
 .section-title {
+  margin-bottom: 10px;
   text-align: center;
   font-size: 1.4em;
-  margin-bottom: 10px;
 }
 
-/* Управляющие элементы */
-.controls {
-  text-align: center;
-  padding: 0;
-}
+/* ---------- Controls ---------- */
+.controls { text-align: center; }
 
 .controls textarea,
 .controls input {
@@ -60,39 +66,32 @@ html {
   max-width: 100%;
   padding: 6px;
   margin: 10px 0;
-  font-family: monospace;
-  font-size: 0.9em;
-  box-sizing: border-box;
+  font: 0.9em/1 monospace;
 }
 
 .controls button {
   padding: 6px 12px;
   margin-left: 10px;
   font-size: 0.9em;
+  cursor: pointer;
 }
 
-.controls .wide-button {
+.wide-button {
   width: calc(100% - 20px);
   max-width: 100%;
   padding: 8px;
   margin: 10px 0;
-  font-size: 1em;
-  font-weight: bold;
-  cursor: pointer;
-  box-sizing: border-box;
+  font: 700 1em/1 monospace;
 }
 
-.controls .status {
+.status {
   margin: 10px 0;
-  font-family: monospace;
-  font-size: 0.9em;
+  font: 0.9em/1 monospace;
   text-align: center;
-  white-space: normal;
   word-wrap: break-word;
-  overflow-wrap: break-word;
 }
 
-/* Радио-кнопки */
+/* ---------- Radio group ---------- */
 .hash-type-inline {
   display: flex;
   justify-content: center;
@@ -101,42 +100,34 @@ html {
   margin-top: 10px;
   font-size: 0.95em;
   white-space: nowrap;
-  flex-wrap: nowrap;
-  flex-shrink: 1;
 }
-
-.hash-type-inline > span {
-  font-weight: 500;
-}
-
+.hash-type-inline > span { font-weight: 500; }
 .hash-type-inline label {
   display: inline-flex;
   align-items: center;
   gap: 4px;
-  font-weight: normal;
   cursor: pointer;
 }
 
-/* Кнопка Generate */
+/* ---------- Generate button ---------- */
 .green-button {
-  background-color: #28a745;
-  color: white;
-  border: none;
-  transition: background-color 0.2s ease;
+  background: var(--green);
+  color: #fff;
+  border: 0;
   border-radius: 4px;
+  transition: background-color 0.2s ease;
+  touch-action: manipulation;
 }
+.green-button:hover            { background: var(--green-dark); }
+.green-button:focus-visible    { outline: 2px solid var(--green-dark); }
+.green-button:active           { background: var(--green); }
 
-.green-button:hover {
-  background-color: #218838;
-}
-
-/* Кнопки загрузки */
+/* ---------- Download buttons ---------- */
 #download-buttons {
   display: flex;
   justify-content: center;
   gap: 10px;
-  margin-top: 10px;
-  margin-bottom: 20px;
+  margin: 10px 0 20px;
 }
 
 #download-buttons button {
@@ -144,30 +135,30 @@ html {
   cursor: pointer;
 }
 
-/* Ссылка на описание */
+
+/* ---------- About link ---------- */
 #about-link {
+  margin: 0 auto;
   text-align: center;
-  margin: 0px auto 0px;
   font-size: 1em;
 }
-
 #about-link a {
+  color: var(--blue-link);
   text-decoration: underline;
-  color: #0077cc;
   cursor: pointer;
 }
 
-/* Контентные секции */
-#features-content, #about-content {
-  text-align: left;
+/* ---------- Content layout ---------- */
+#features-content,
+#about-content {
   padding-left: 1em;
   line-height: 1.6;
 }
 
-/* Адаптация под мобильные */
-@media (max-width: 400px) {
+/* ---------- Mobile tweaks — keep as-is ---------- */
+@media (max-width: 330px) {
   #download-buttons button,
-  .controls .wide-button,
+  .wide-button,
   .controls button {
     font-size: 1em;
     padding: 12px 16px;
@@ -179,23 +170,33 @@ html {
     gap: 6px;
     margin-top: 12px;
   }
-
-  .hash-type-inline span {
-    font-size: 1em;
-    margin-bottom: 4px;
-  }
-
-  .hash-type-inline label {
-    font-size: 1em;
-  }
+  .hash-type-inline span   { font-size: 1em; margin-bottom: 4px; }
+  .hash-type-inline label  { font-size: 1em; }
 
   .controls textarea,
-  .controls input {
-    font-size: 1em;
-  }
+  .controls input          { font-size: 1em; }
 
-  .controls .status {
+  .status {
     font-size: 0.95em;
     padding: 0 10px;
   }
+}
+
+/* ---------- “Generate” button dimensions ---------- */
+.controls .wide-button {
+  width: calc(100% - 20px);  
+  max-width: 100%;
+  padding: 12px;              
+  margin: 10px 0;
+  font-size: 1.1em;       
+  font-weight: bold;
+  cursor: pointer;
+  box-sizing: border-box;   
+}
+
+/* Restore left-aligned copy with original indent */
+#features-content,
+#about-content {
+  text-align: left;   
+  padding-left: 1em;  
 }
