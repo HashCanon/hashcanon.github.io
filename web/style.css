@@ -111,16 +111,24 @@ html { scroll-behavior: smooth; }
 
 /* ---------- Generate button ---------- */
 .green-button {
-  background: var(--green);
+  background: var(--green);          /* default light-green */
   color: #fff;
   border: 0;
   border-radius: 4px;
-  transition: background-color 0.2s ease;
+  transition: background-color .2s ease;
   touch-action: manipulation;
 }
-.green-button:hover            { background: var(--green-dark); }
-.green-button:focus-visible    { outline: 2px solid var(--green-dark); }
-.green-button:active           { background: var(--green); }
+
+/* keyboard focus (доступность) */
+.green-button:focus-visible {
+  outline: 2px solid var(--green-dark);
+}
+
+/* dark colour ONLY while the button is pressed */
+.green-button:active {
+  background: var(--green-dark);
+}
+
 
 /* ---------- Download buttons ---------- */
 #download-buttons {
@@ -134,7 +142,6 @@ html { scroll-behavior: smooth; }
   all: revert;
   cursor: pointer;
 }
-
 
 /* ---------- About link ---------- */
 #about-link {
