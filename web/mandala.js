@@ -82,7 +82,7 @@ function drawMandala(hex, bits = 256) {
   const lineLength   = bits === 160 ? 10 : 16;
   const square       = hex.slice(2).match(new RegExp(`.{1,${lineLength}}`, 'g'));
   const textElements = square.map((line, i) =>
-    `<text x="${cx}" y="${cy - 45 + i * 36}" font-size="22" fill="white" text-anchor="middle" font-family="monospace">${line}</text>`
+    `<text x="${cx}" y="${cy - 47 + i * 36}" font-size="22" fill="white" text-anchor="middle" font-family="monospace">${line}</text>`
   );
 
   const svg = `
