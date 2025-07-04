@@ -249,7 +249,7 @@ html { scroll-behavior: smooth; }
   }
 
   a, a:visited {
-    color: #66bfff;
+    color: #66bfff !important;
   }
 
   .status {
