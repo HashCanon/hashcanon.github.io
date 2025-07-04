@@ -223,3 +223,49 @@ html { scroll-behavior: smooth; }
     background: #fff;
   }
 }
+
+/* ---------- Dark mode support ---------- */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg-color: #121212;
+    --text-color: #f2f2f2;
+    --card-bg: #1e1e1e;
+    --title-bg: #121212;
+  }
+
+  html, body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+  }
+
+  #title {
+    background: var(--title-bg);
+  }
+
+  #download-buttons button {
+    background: var(--card-bg);
+    border-color: #666;
+    color: var(--text-color);
+  }
+
+  a, a:visited {
+    color: #66bfff;
+  }
+
+  .status {
+    color: var(--text-color);
+  }
+
+  .controls textarea,
+  .controls input {
+    background-color: var(--card-bg);
+    color: var(--text-color);
+    border: 1px solid #555;
+  }
+
+  #svg-container {
+    border: 1px solid #686868; /* светлая серая рамка */
+    border-radius: 0px;
+  }  
+}
+
