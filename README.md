@@ -77,7 +77,7 @@ Beyond rendering the SVG mandala, the demo also analyses structural features:
 
 This tool is ideal for studying how entropy crystallises into form.
 
-**[→ Launch the viewer](https://datasattva.github.io/hashjing/)**  
+**[→ Launch the viewer](https://datasattva.github.io/hashjing-demo/)**  
 **[→ See WhitePaper.ipynb for technical details](https://github.com/DataSattva/hashjing/blob/main/WhitePaper.ipynb)**
 
 ## License
