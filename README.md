@@ -5,7 +5,7 @@ By applying binary logic and ideas drawn from the *Yì Jīng*—the ancient *Boo
 
 
 <figure markdown>
-<img src="pic/hashjing_mandala.svg" alt="Mandala generated from the SHA‑256 hash of the string “HashJing”"/>
+<img src="pic/hashjing_mandala.svg" alt="Mandala generated from the SHA‑256 hash of the string “HashJing”" width="512"/>
 </figure>
 
 *Mandala generated from the SHA‑256 hash of “HashJing”*  
