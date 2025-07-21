@@ -43,12 +43,8 @@ A mandala becomes a frame for contemplating entropy, symmetry, rarity, and the v
 ├── hash_utils/
 │   ├── __init__.py
 │   └── base_hash.py             # Hash analysis & mandala construction logic
-├── web/
-│   ├── main.js                  # UI and interaction logic
-│   ├── mandala.js               # SVG generation code
-│   └── style.css                # Layout and typography
 └── pic/
-    ├── hashjing_mandala.png     # Sample mandala
+    ├── hashjing_mandala.svg     # Sample mandala
     └── yi_circle.jpg            # 64-hexagram I Ching diagram
 ```
 
