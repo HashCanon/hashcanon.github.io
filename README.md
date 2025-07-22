@@ -1,9 +1,5 @@
 # HashJing  
-*The canon of every hash*
-
-- [Launch the interactive demo](https://datasattva.github.io/hashjing-demo/)
-- [Art Manifesto](./ArtManifesto.md)  
-- [White Paper](./WhitePaper.ipynb)
+> *The canon of every hash*
 
 **HashJing** is an open-source toolkit and aesthetic inquiry that sits where generative art meets modern cryptography and East-Asian symbolism.  
 By applying binary logic and ideas drawn from the *Yì Jīng*—the ancient *Book of Changes*—it turns any hash into a deterministic visual glyph, revealing the hidden patterns inside cryptographic entropy.
