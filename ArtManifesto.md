@@ -10,7 +10,7 @@
 We take a 256-bit string a cryptographically secure seed or the hash of any token—and turn it into a **mandala of randomness** made of 64 sectors (one per hex symbol) and four concentric rings (one per bit in the symbol).
 
 <figure markdown>
-<img src="pic/hashjing_mandala.png" alt="Mandala generated from the SHA-256 hash of the project name ‘HashJing’"/>
+<img src="pic/hashjing_mandala.svg" alt="Mandala generated from the SHA-256 hash of the string “HashJing”" width="512"/>
 </figure>
 
 *Mandala generated from the SHA-256 hash of the project name “HashJing”:*
