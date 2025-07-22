@@ -77,10 +77,9 @@ Full contract code and specification: <https://github.com/DataSattva/hashjing-nf
 | Famous Blockchain Hashes gallery | [FamousBlockchainHashes.ipynb](./FamousBlockchainHashes.ipynb) |
 | Developer guide | [CONTRIBUTING.md](./CONTRIBUTING.md) |
 
-## Contacts and resources
+## Contacts and Resources
 
-The always-up-to-date contact list lives at  
-<https://datasattva.github.io/hashjing-res/>
+For a detailed list of HashJing contacts and resources, see the page [Contacts and Resources](https://datasattva.github.io/hashjing-res/)
 
 ## License
 
