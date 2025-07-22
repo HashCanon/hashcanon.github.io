@@ -1,5 +1,5 @@
 # HashJing  
-> *The canon of every hash*
+> *The Canon of every Hash*
 
 **HashJing** is an open-source toolkit and aesthetic inquiry that sits where generative art meets modern cryptography and East-Asian symbolism.  
 By applying binary logic and ideas drawn from the *Yì Jīng*—the ancient *Book of Changes*—it turns any hash into a deterministic visual glyph, revealing the hidden patterns inside cryptographic entropy.
@@ -51,11 +51,10 @@ The upcoming **HashJing NFT drop** (Q3 2025)
 | SVG     | Fully on-chain, gas-efficient |
 | Traits  | `balanced`, `sealed`, `passages`, `creatorInitialReserve` |
 
-Holding a HashJing grants:
+Each HashJing token is a self-contained, on-chain SVG mandala.  
+All metadata, image data, and traits (`balanced`, `passages`, original 32-byte source hash) live permanently inside the Ethereum contract—no IPFS, no external servers.  
+Full contract code and specification: <https://github.com/DataSattva/hashjing-nft>
 
-* Access to token-gated Discord channels  
-* Quarterly *Hash Horoscopes* airdrops  
-* Early experiments with Farcaster Frames and generative merchandise  
 
 
 ## Learn more
