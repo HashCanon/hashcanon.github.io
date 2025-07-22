@@ -4,8 +4,6 @@ Thank you for your interest in **HashJing**.
 The core codebase and visuals are complete and maintained by the project author, so no active development roadmap is advertised.  
 However, you are welcome to explore, verify, and extend the analytical notebooks that accompany the project.
 
----
-
 ## Repository layout
 
 ```text
@@ -29,13 +27,11 @@ Two Jupyter notebooks can be opened locally or on any cloud service (e.g. Google
 
 | Notebook                         | Purpose                                                                                                                                                      |
 | -------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| **WhitePaper.ipynb**             | Derives the mapping rules, produces statistical tables, and walks through the sealed / balanced / passages metrics.                                          |
-| **FamousBlockchainHashes.ipynb** | Regenerates mandalas for Genesis blocks, landmark contracts, and other culturally significant hashes. Add your own examples or tweak parameters as you wish. |
+| **[WhitePaper.ipyn](./WhitePaper.ipynb)**             | Derives the mapping rules, produces statistical tables, and walks through the sealed / balanced / passages metrics.                                          |
+| **[FamousBlockchainHashes.ipynb](./FamousBlockchainHashes.ipynb)** | Regenerates mandalas for Genesis blocks, landmark contracts, and other culturally significant hashes. Add your own examples or tweak parameters as you wish. |
 
 Both notebooks rely only on the Python Standard Library plus `matplotlib`.
 Simply open, run all cells, and experiment.
-
----
 
 ## License
 

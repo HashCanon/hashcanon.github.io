@@ -1,8 +1,8 @@
 # HashJing  
 *The canon of every hash*
 
-[Launch the interactive demo](https://datasattva.github.io/hashjing-demo/) •  
-[Art Manifesto](./ArtManifesto.md) •  
+[Launch the interactive demo](https://datasattva.github.io/hashjing-demo/)
+[Art Manifesto](./ArtManifesto.md)  
 [White Paper](./WhitePaper.ipynb)
 
 **HashJing** is an open-source toolkit and aesthetic inquiry that sits where generative art meets modern cryptography and East-Asian symbolism.  
@@ -14,8 +14,6 @@ By applying binary logic and ideas drawn from the *Yì Jīng*—the ancient *Boo
 
 *Mandala generated from the SHA-256 hash of “HashJing”*  
 `0x2b054d225d025fc24c58030bda276b16089ae21cc8aff93d2751472a98eab06c`
-
----
 
 ## What it does
 
@@ -35,8 +33,6 @@ A mandala becomes a frame for contemplating entropy, symmetry, rarity, and the v
 * The hash as a seal—an imprint of choice  
 * Complete determinism  
 
----
-
 ## Quick start
 
 1. Open the demo: <https://datasattva.github.io/hashjing-demo/>  
@@ -47,7 +43,6 @@ A mandala becomes a frame for contemplating entropy, symmetry, rarity, and the v
    * Passage count  
    * Rare sealed states  
 
----
 
 ## Why NFTs?
 
@@ -66,17 +61,15 @@ Holding a HashJing grants:
 * Quarterly *Hash Horoscopes* airdrops  
 * Early experiments with Farcaster Frames and generative merchandise  
 
----
 
 ## Learn more
 
 | Resource | Link |
 |----------|------|
-| White Paper – algorithms and maths | `./WhitePaper.ipynb` |
-| Art Manifesto – philosophy | `./ArtManifesto.md` |
-| Famous Blockchain Hashes gallery | `./FamousBlockchainHashes.ipynb` |
-| Contacts and resources (always up to date) | <https://datasattva.github.io/hashjing-res/> |
-| Developer setup and contribution guide | `CONTRIBUTING.md` |
+| White Paper – algorithms and maths | [WhitePaper.ipyn](./WhitePaper.ipynb) |
+| Art Manifesto – philosophy | [Art Manifesto](./ArtManifesto.md)  |
+| Famous Blockchain Hashes gallery | [FamousBlockchainHashes.ipynb](./FamousBlockchainHashes.ipynb) |
+| Developer setup and contribution guide | [CONTRIBUTING.md](./CONTRIBUTING.md) |
 
 
 ---
