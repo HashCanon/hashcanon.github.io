@@ -1,91 +1,93 @@
-# HashJing
+# HashJing  
+*The canon of every hash*
+
+[Launch the interactive demo](https://datasattva.github.io/hashjing-demo/) •  
+[Art Manifesto](./ArtManifesto.md) •  
+[White Paper](./WhitePaper.ipynb)
 
 **HashJing** is an open-source toolkit and aesthetic inquiry that sits where generative art meets modern cryptography and East-Asian symbolism.  
 By applying binary logic and ideas drawn from the *Yì Jīng*—the ancient *Book of Changes*—it turns any hash into a deterministic visual glyph, revealing the hidden patterns inside cryptographic entropy.
 
-
 <figure markdown>
-<img src="pic/hashjing_mandala.svg" alt="Mandala generated from the SHA‑256 hash of the string “HashJing”" width="512"/>
+<img src="pic/hashjing_mandala.svg" alt="Mandala generated from the SHA-256 hash of the string “HashJing”" width="512"/>
 </figure>
 
-*Mandala generated from the SHA‑256 hash of “HashJing”*  
+*Mandala generated from the SHA-256 hash of “HashJing”*  
 `0x2b054d225d025fc24c58030bda276b16089ae21cc8aff93d2751472a98eab06c`
+
+---
 
 ## What it does
 
-HashJing converts cryptographic hash strings—typically **256‑bit** (SHA‑256) and optionally **160‑bit** (Ethereum‑address format)—into **mandalas**: circular diagrams composed of radial sectors and concentric rings.  
-Each sector represents one hex character; each ring represents one of that character’s four bits. Thus a 256‑bit hash yields **64 sectors**, while a 160‑bit hash yields **40**. The mapping is fully deterministic: **one hash → one form**.
+HashJing converts cryptographic hash strings—typically **256-bit** (SHA-256) and optionally **160-bit** (Ethereum-address format)—into **mandalas**: circular diagrams composed of radial sectors and concentric rings.  
+Each sector represents one hex character; each ring represents one of that character’s four bits. Thus a 256-bit hash yields **64 sectors**, while a 160-bit hash yields **40**. The mapping is fully deterministic: **one hash → one form**.
 
-Default hashing uses SHA‑256; **Keccak‑256** (the Ethereum variant) is available as an option.
-
-**Address support** – any 160‑bit Ethereum address (wallet or contract) can be visualised as a 40‑sector mandala.
+Default hashing uses SHA-256; **Keccak-256** (the Ethereum variant) is available as an option.  
+Any 160-bit Ethereum address (wallet or contract) can be visualised as a 40-sector mandala.
 
 A mandala becomes a frame for contemplating entropy, symmetry, rarity, and the visible face of probability.
 
-## Core ideas
+### Core ideas
 
 * Binary patterns as a visual language  
 * Randomness rendered observable  
 * Parallels with the 64 hexagrams of the *Yì Jīng*  
 * The hash as a seal—an imprint of choice  
-* Complete determinism
+* Complete determinism  
 
-## Project layout
+---
 
-```text
-├── README.md                    # 1. Entry point
-├── WhitePaper.ipynb             # 2. Technical deep-dive
-├── ArtManifesto.md              # 3. Artistic statement
-├── FamousBlockchainHashes.ipynb # 4. Gallery of landmark hashes
-├── index.html                   # 5. HashJing Mandala Demo (live UI)
-├── LICENSE-MIT.md               # MIT license for source code
-├── LICENSE-CCBYNC.md            # CC BY-NC 4.0 for visuals & docs
-├── hash_utils/
-│   ├── __init__.py
-│   └── base_hash.py             # Hash analysis & mandala construction logic
-└── pic/
-    ├── hashjing_mandala.svg     # Sample mandala
-    └── yi_circle.jpg            # 64-hexagram I Ching diagram
-```
+## Quick start
 
-## Further reading
+1. Open the demo: <https://datasattva.github.io/hashjing-demo/>  
+2. Paste a hash (or type any text).  
+3. Click **Generate** to view an SVG mandala.  
+4. Download as **SVG** or **PNG**, or explore the *Features of Order* panel:  
+   * Balanced / unbalanced bits  
+   * Passage count  
+   * Rare sealed states  
 
-* [**ArtManifesto.md**](https://github.com/DataSattva/hashjing/blob/main/ArtManifesto.md) – philosophical background; HashJing as “the shape of randomness.”
+---
 
-* [**WhitePaper.ipynb**](https://github.com/DataSattva/hashjing/blob/main/WhitePaper.ipynb) – technical details, mapping rules, statistical features.
+## Why NFTs?
 
-* [**FamousBlockchainHashes.ipynb**](https://github.com/DataSattva/hashjing/blob/main/FamousBlockchainHashes.ipynb) – mandalas of Genesis blocks, landmark contracts, and other culturally significant hashes.
+The upcoming **HashJing NFT drop** (Q3 2025)
 
-## HashJing Mandala Demo
+| Spec    | Value |
+|---------|-------|
+| Supply  | 8 192 tokens |
+| Price   | 0.002 ETH (fixed) |
+| SVG     | Fully on-chain, gas-efficient |
+| Traits  | `balanced`, `sealed`, `passages`, `creatorInitialReserve` |
 
-`index.html` is an interactive viewer and generator for **HashJing** mandalas.  
-It lets you explore the visual logic of cryptographic hashes in three ways:
+Holding a HashJing grants:
 
-* **Text → hash** Enter any string, get its SHA-256 hash, and see the mandala.  
-* **Custom hash** Paste any 256- or 160-bit hexadecimal value (e.g. an Ethereum address).  
-* **Random hash** Leave the fields blank and click **Generate** to create a fresh mandala.
+* Access to token-gated Discord channels  
+* Quarterly *Hash Horoscopes* airdrops  
+* Early experiments with Farcaster Frames and generative merchandise  
 
-Beyond rendering the SVG mandala, the demo also analyses structural features:
+---
 
-* **Bit balance** — whether the hash has an equal number of 0 s and 1 s  
-* **Sealedness** — does any path connect the centre to the edge?  
-* **Passages** — count of black corridors from core to outer ring  
+## Learn more
 
-This tool is ideal for studying how entropy crystallises into form.
+| Resource | Link |
+|----------|------|
+| White Paper – algorithms and maths | `./WhitePaper.ipynb` |
+| Art Manifesto – philosophy | `./ArtManifesto.md` |
+| Famous Blockchain Hashes gallery | `./FamousBlockchainHashes.ipynb` |
+| Contacts and resources (always up to date) | <https://datasattva.github.io/hashjing-res/> |
+| Developer setup and contribution guide | `CONTRIBUTING.md` |
 
-**[→ Launch the viewer](https://datasattva.github.io/hashjing-demo/)**  
-**[→ See WhitePaper.ipynb for technical details](https://github.com/DataSattva/hashjing/blob/main/WhitePaper.ipynb)**
 
-## License
-
-- Code: [MIT License](https://github.com/DataSattva/hashjing/blob/main/LICENSE-MIT.md).
-- Visual outputs and documentation: [CC BY-NC 4.0](https://github.com/DataSattva/hashjing/blob/main/LICENSE-CCBYNC.md).
-
-You're free to use, remix, and redistribute the project — including generated art — for **non-commercial purposes**, with proper attribution.
+---
 
 ## Contacts and Resources
 
 For a detailed list of HashJing contacts and resources, see the page [Contacts and Resources](https://datasattva.github.io/hashjing-res/)
 
+---
 
+## License
 
+* Code – MIT  
+* Visuals and documentation – CC BY-NC 4.0
