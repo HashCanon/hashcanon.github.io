@@ -68,6 +68,10 @@ HashJing is
 
 **Generate your own hash-mandala.**
 See what your “almost impossible” symmetry looks like.
-[Open the HashJing demo](https://datasattva.github.io/hashjing/)
+[Open the HashJing demo](https://datasattva.github.io/hashjing-demo/)
 
 You can also supply a custom hash—see the code in [WhitePaper.ipynb](https://github.com/DataSattva/hashjing/blob/main/WhitePaper.ipynb).
+
+## Contacts and Resources
+
+For a detailed list of HashJing contacts and resources, see the page [Contacts and Resources](https://datasattva.github.io/hashjing-res/)

@@ -83,5 +83,9 @@ This tool is ideal for studying how entropy crystallises into form.
 
 You're free to use, remix, and redistribute the project — including generated art — for **non-commercial purposes**, with proper attribution.
 
+## Contacts and Resources
+
+For a detailed list of HashJing contacts and resources, see the page [Contacts and Resources](https://datasattva.github.io/hashjing-res/)
+
 
 
