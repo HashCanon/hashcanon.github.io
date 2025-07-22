@@ -34,6 +34,10 @@ Two Jupyter notebooks can be opened locally or on any cloud service (e.g. Google
 Both notebooks rely only on the Python Standard Library plus `matplotlib`.
 Simply open, run all cells, and experiment.
 
+## Contacts and Resources
+
+For a detailed list of HashJing contacts and resources, see the page [Contacts and Resources](https://datasattva.github.io/hashjing-res/)
+
 ## License
 
 Contributions are accepted under the same dual license as the project:
