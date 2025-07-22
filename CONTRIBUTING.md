@@ -19,6 +19,7 @@ However, you are welcome to explore, verify, and extend the analytical notebooks
 │   └── base_hash.py             # Core hash-to-mandala logic
 └── pic/
     └── hashjing_mandala.svg     # Sample image
+    └── yi_circle.jpg            # 64-hexagram I Ching diagram
 ```
 
 ## Reproducible notebooks
