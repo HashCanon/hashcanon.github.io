@@ -627,25 +627,46 @@ def crown_metric(hex_str: str, bits: int = 256) -> str:
 
 # ---------- Overlay data for drawing ----------------------------------------
 
-def symmetry_overlay_segments(sym: List[Symmetry], sectors: int) -> Dict[str, List[Tuple[int, int]]]:
-    """
-    Prepare overlay data for drawing:
-      - 'boundaries': list of (start, end) for red radial lines
-      - 'all_spans' : list of (start, length) for gray translucent fills
-      - 'max_spans' : same for maximal spans (to be highlighted in red)
-    """
+# Backward- and forward-compatible overlay builder
+# Supports both legacy and new signatures:
+#   1) symmetry_overlay_segments(sym, sectors=64|40)            # legacy
+#   2) symmetry_overlay_segments(sym, hex_str=..., bits=...)    # new (no sectors)
+#   3) symmetry_overlay_segments(sym)                           # heuristic (40/64)
+
+def symmetry_overlay_segments(
+    sym: List[Symmetry],
+    sectors: Optional[int] = None,
+    *,
+    hex_str: Optional[str] = None,
+    bits: Optional[int] = None,
+) -> Dict[str, List[Tuple[int, int]]]:
+    """Return overlay data with both legacy and new calling styles supported."""
+    # ---- resolve sectors (keep legacy calls working) ------------------------
+    if sectors is None:
+        # try to infer from hex_str length
+        if isinstance(hex_str, str):
+            clean = hex_str[2:] if hex_str.startswith("0x") else hex_str
+            if len(clean) in (40, 64):
+                sectors = len(clean)
+        # try to infer from bits
+        if sectors is None and bits in (160, 256):
+            sectors = bits // 4
+        # fallback heuristic
+        if sectors is None:
+            fits40 = all((s < 40 and L <= 40) for (s, L, _) in sym) if sym else True
+            sectors = 40 if fits40 else 64
+
+    # ---- build lists --------------------------------------------------------
     max_len = max((L for _, L, _ in sym), default=0)
     boundaries = [(s, (s + L) % sectors) for (s, L, _) in sym]
-    all_spans = [(s, L) for (s, L, _) in sym]
-    max_spans = [(s, L) for (s, L, _) in sym if L == max_len]
+    all_spans  = [(s, L) for (s, L, _) in sym]
+    max_spans  = [(s, L) for (s, L, _) in sym if L == max_len]
     return {"boundaries": boundaries, "all_spans": all_spans, "max_spans": max_spans}
 
-# ---------- Mandala renderer (matplotlib) -----------------------------------
-
+# Legacy adapter kept for internal/older calls; delegates to the unified API.
 def symmetry_overlay_segments_prepare(sym: List[Symmetry], sectors: int) -> Dict[str, List[Tuple[int, int]]]:
-    """Adapter to keep API name in draw_mandala readable."""
-    return symmetry_overlay_segments(sym, sectors)
-
+    """Deprecated: use symmetry_overlay_segments(sym, ...) instead."""
+    return symmetry_overlay_segments(sym, sectors=sectors)
 
 # -------
 def draw_mandala(hex_string, inner_radius=0.32, show_radial_line=False, sectors=64, symmetry_overlay_segments=False):
