@@ -58,4 +58,3 @@ Contributions are accepted under the same dual license as the project:
 * **Visuals & documentation** — CC BY-NC 4.0
 
 By submitting content, you agree that it will be released under these terms.
-
