@@ -1,10 +1,6 @@
 # HashCanon  
 > *The Canon of Every Hash*
 
-[![Discussions](https://img.shields.io/github/discussions/HashCanon/hashcanon?logo=github)](https://github.com/HashCanon/hashcanon/discussions)
-[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg?logo=github)](./LICENSE-MIT.md)
-[![Docs/Resources](https://img.shields.io/badge/site-resources-181717?logo=github)](https://hashcanon.github.io/resources/)
-
 [**▶︎ Launch the HashCanon Generator**](https://hashcanon.github.io/generator/)
 
 **HashCanon** is an open-source toolkit and aesthetic inquiry at the point where generative art meets modern cryptography and East Asian symbolism.  
