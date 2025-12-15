@@ -57,19 +57,18 @@ By merging these insights with modern cryptography, HashCanon places contemporar
 
 | Resource | Link |
 |----------|------|
-| White Paper – algorithms and maths | [WhitePaper.ipynb](./WhitePaper.ipynb) |
-| Art Manifesto – philosophy | [ArtManifesto.md](./ArtManifesto.md) |
-| Famous Blockchain Hashes gallery | [FamousBlockchainHashes.ipynb](./FamousBlockchainHashes.ipynb) |
+| White Paper — algorithms & math | [WhitePaper.ipynb](./WhitePaper.ipynb) |
+| Art Manifesto — philosophy | [ArtManifesto.md](./ArtManifesto.md) |
+| Famous Blockchain Hashes — gallery | [FamousBlockchainHashes.ipynb](./FamousBlockchainHashes.ipynb) |
 | Developer guide | [CONTRIBUTING.md](./CONTRIBUTING.md) |
+| HashCanon Generator | https://hashcanon.github.io/generator/ |
 
 ## Community, Support & License
 
 [![Discussions](https://img.shields.io/github/discussions/HashCanon/hashcanon?logo=github)](https://github.com/HashCanon/hashcanon/discussions)
-[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg?logo=github)](./LICENSE-MIT.md)
 [![site-resources](https://img.shields.io/badge/site-resources-181717?logo=github)](https://hashcanon.github.io/resources/)
 [![site-generator](https://img.shields.io/badge/site-generator-181717?logo=github)](https://hashcanon.github.io/generator/)
 
 **License:**  
-- Code — [MIT](./LICENSE-MIT.md)  
+- Code — [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg?logo=github)](./LICENSE-MIT.md)  
 - Visuals & docs — [CC BY-NC 4.0](./LICENSE-CCBYNC.md)
-
