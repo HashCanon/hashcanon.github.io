@@ -79,12 +79,14 @@ Full contract code and specification: <https://github.com/DataSattva/hashjing-nf
 
 ## Community & Support
 
-[![Join the discussion](https://img.shields.io/github/discussions/DataSattva/hashjing?logo=github)](https://github.com/DataSattva/hashjing/discussions)
+[![Join the discussion](https://img.shields.io/github/discussions/HashCanon/HashCanon?logo=github)](https://github.com/HashCanon/hashcanon/discussions)
 
 Questions, ideas or bug reports?  
-Open a thread in [**HashJing Discussions**](https://github.com/DataSattva/hashjing/discussions) and let’s talk!
+Open a thread in [**HashCanon Discussions**](https://github.com/HashCanon/HashCanon/discussions) and let’s talk!
 
-For a detailed list of HashJing contacts and resources, see the page [**Contacts and Resources**](https://datasattva.github.io/hashjing-res/).
+For a detailed list of HashCanon contacts and resources, see the page [**Contacts and Resources**](https://hashcanon.github.io/resources/).
+
+For a live generator and examples, see the [**HashCanon Generator**](https://hashcanon.github.io/generator/)
 
 ## License
 
