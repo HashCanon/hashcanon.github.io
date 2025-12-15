@@ -3,6 +3,8 @@
 
 [**▶︎ Launch the HashCanon Generator**](https://hashcanon.github.io/generator/)
 
+> **Invertible hash visualization** — a deterministic, bijective mapping between a 160/256-bit hash and a circular bit-matrix image (and back).
+
 **HashCanon** is an open-source toolkit and aesthetic inquiry at the point where generative art meets modern cryptography and East Asian symbolism.  
 By applying binary logic and ideas drawn from the *Yì Jīng*—better known in the West as the *I Ching* or *Book of Changes* (literally the classical *Canon of Changes*)—it turns any hash into a deterministic visual glyph, revealing the hidden patterns inside cryptographic entropy.
 
@@ -16,6 +18,9 @@ By applying binary logic and ideas drawn from the *Yì Jīng*—better known in 
 ## What it does
 
 HashCanon converts cryptographic hash strings—typically **256-bit** (SHA-256) and optionally **160-bit** (Ethereum-address format)—into **mandalas**: circular diagrams composed of radial sectors and concentric rings.  
+
+In addition to being deterministic, the mapping is **invertible**: given the fixed ring/sector layout (see the WhitePaper), the original hash can be recovered from the diagram. The image is the data.
+
 Each sector maps to one hex character; each ring maps to one of that character’s four bits. Thus a 256-bit hash yields **64 sectors**, while a 160-bit hash yields **40**. The mapping is fully deterministic: **one hash → one form**.
 
 Default hashing uses SHA-256; **Keccak-256** (the Ethereum variant) is available as an option.  
@@ -23,7 +28,7 @@ Any 160-bit Ethereum address (wallet or contract) can be visualised as a 40-sect
 
 ### Why it matters
 
-HashCanon is more than a hash visualiser; it is a meditation on chance and order.
+HashCanon is more than a hash visualiser; it formalises how chance crystallises into visible order.
 
 One and the same 256-bit string of pure entropy is deterministically transformed into a coherent visual sign, a *canon*.  
 *Where is the boundary between entropy and canon?* At what moment does raw data become a cultural or symbolic object—inside the SVG function, in the viewer’s perception, or already in the immutability that cryptography confers?
@@ -61,7 +66,7 @@ By merging these insights with modern cryptography, HashCanon places contemporar
 | Art Manifesto — philosophy | [ArtManifesto.md](./ArtManifesto.md) |
 | Famous Blockchain Hashes — gallery | [FamousBlockchainHashes.ipynb](./FamousBlockchainHashes.ipynb) |
 | Developer guide | [CONTRIBUTING.md](./CONTRIBUTING.md) |
-| HashCanon Generator | https://hashcanon.github.io/generator/ |
+| HashCanon Generator | [![site-generator](https://img.shields.io/badge/site-generator-181717?logo=github)](https://hashcanon.github.io/generator/) |
 
 ## Community, Support & License
 
