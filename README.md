@@ -2,9 +2,6 @@
 > *The Canon of Every Hash*
 
 [![Discussions](https://img.shields.io/github/discussions/HashCanon/hashcanon?logo=github)](https://github.com/HashCanon/hashcanon/discussions)
-[![Issues](https://img.shields.io/github/issues/HashCanon/hashcanon?logo=github)](https://github.com/HashCanon/hashcanon/issues)
-[![Pull Requests](https://img.shields.io/github/issues-pr/HashCanon/hashcanon?logo=github)](https://github.com/HashCanon/hashcanon/pulls)
-[![Stars](https://img.shields.io/github/stars/HashCanon/hashcanon?style=social&logo=github)](https://github.com/HashCanon/hashcanon)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg?logo=github)](./LICENSE-MIT.md)
 [![Docs/Resources](https://img.shields.io/badge/site-resources-181717?logo=github)](https://hashcanon.github.io/resources/)
 
