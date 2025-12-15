@@ -66,18 +66,14 @@ By merging these insights with modern cryptography, HashCanon places contemporar
 | Famous Blockchain Hashes gallery | [FamousBlockchainHashes.ipynb](./FamousBlockchainHashes.ipynb) |
 | Developer guide | [CONTRIBUTING.md](./CONTRIBUTING.md) |
 
-## Community & Support
+## Community, Support & License
 
-[![Join the discussion](https://img.shields.io/github/discussions/HashCanon/HashCanon?logo=github)](https://github.com/HashCanon/hashcanon/discussions)
+[![Discussions](https://img.shields.io/github/discussions/HashCanon/hashcanon?logo=github)](https://github.com/HashCanon/hashcanon/discussions)
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg?logo=github)](./LICENSE-MIT.md)
+[![site-resources](https://img.shields.io/badge/site-resources-181717?logo=github)](https://hashcanon.github.io/resources/)
+[![site-generator](https://img.shields.io/badge/site-generator-181717?logo=github)](https://hashcanon.github.io/generator/)
 
-Questions, ideas or bug reports?  
-Open a thread in [**HashCanon Discussions**](https://github.com/HashCanon/HashCanon/discussions) and let’s talk!
+**License:**  
+- Code — [MIT](./LICENSE-MIT.md)  
+- Visuals & docs — [CC BY-NC 4.0](./LICENSE-CCBYNC.md)
 
-For a detailed list of HashCanon contacts and resources, see the page [**Contacts and Resources**](https://hashcanon.github.io/resources/).
-
-For a live generator and examples, see the [**HashCanon Generator**](https://hashcanon.github.io/generator/)
-
-## License
-
-* Code – MIT  
-* Visuals and documentation – CC BY-NC 4.0
