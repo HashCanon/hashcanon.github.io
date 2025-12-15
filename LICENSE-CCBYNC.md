@@ -1,5 +1,7 @@
 ## Creative Commons Attribution – NonCommercial 4.0 International (CC BY-NC 4.0)
 
+This license applies to the **HashCanon** visuals and documentation in this repository.
+
 You are free to  
 • **Share** — copy and redistribute the material in any medium or format  
 • **Adapt** — remix, transform, and build upon the material  
