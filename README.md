@@ -1,21 +1,28 @@
-# HashJing  
+# HashCanon  
 > *The Canon of Every Hash*
 
-[**▶︎ Launch the demo**](https://datasattva.github.io/hashjing-demo/)
+[![Discussions](https://img.shields.io/github/discussions/HashCanon/hashcanon?logo=github)](https://github.com/HashCanon/hashcanon/discussions)
+[![Issues](https://img.shields.io/github/issues/HashCanon/hashcanon?logo=github)](https://github.com/HashCanon/hashcanon/issues)
+[![Pull Requests](https://img.shields.io/github/issues-pr/HashCanon/hashcanon?logo=github)](https://github.com/HashCanon/hashcanon/pulls)
+[![Stars](https://img.shields.io/github/stars/HashCanon/hashcanon?style=social&logo=github)](https://github.com/HashCanon/hashcanon)
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg?logo=github)](./LICENSE-MIT.md)
+[![Docs/Resources](https://img.shields.io/badge/site-resources-181717?logo=github)](https://hashcanon.github.io/resources/)
 
-**HashJing** is an open-source toolkit and aesthetic inquiry at the point where generative art meets modern cryptography and East Asian symbolism.  
+[**▶︎ Launch the demo**](https://hashcanon.github.io/generator/)
+
+**HashCanon** is an open-source toolkit and aesthetic inquiry at the point where generative art meets modern cryptography and East Asian symbolism.  
 By applying binary logic and ideas drawn from the *Yì Jīng*—better known in the West as the *I Ching* or *Book of Changes* (literally the classical *Canon of Changes*)—it turns any hash into a deterministic visual glyph, revealing the hidden patterns inside cryptographic entropy.
 
 <figure markdown>
-<img src="pic/hashjing_mandala.svg" alt="Mandala generated from the SHA-256 hash of the string “HashJing”" width="512"/>
+<img src="pic/hashcanon_mandala.svg" alt="Mandala generated from the SHA-256 hash of the string “HashCanon”" width="512"/>
 </figure>
 
-*Mandala generated from the SHA-256 hash of “HashJing”*  
+*Mandala generated from the SHA-256 hash of “HashCanon”*  
 `0x2b054d225d025fc24c58030bda276b16089ae21cc8aff93d2751472a98eab06c`
 
 ## What it does
 
-HashJing converts cryptographic hash strings—typically **256-bit** (SHA-256) and optionally **160-bit** (Ethereum-address format)—into **mandalas**: circular diagrams composed of radial sectors and concentric rings.  
+HashCanon converts cryptographic hash strings—typically **256-bit** (SHA-256) and optionally **160-bit** (Ethereum-address format)—into **mandalas**: circular diagrams composed of radial sectors and concentric rings.  
 Each sector maps to one hex character; each ring maps to one of that character’s four bits. Thus a 256-bit hash yields **64 sectors**, while a 160-bit hash yields **40**. The mapping is fully deterministic: **one hash → one form**.
 
 Default hashing uses SHA-256; **Keccak-256** (the Ethereum variant) is available as an option.  
@@ -23,17 +30,17 @@ Any 160-bit Ethereum address (wallet or contract) can be visualised as a 40-sect
 
 ### Why it matters
 
-HashJing is more than a hash visualiser; it is a meditation on chance and order.
+HashCanon is more than a hash visualiser; it is a meditation on chance and order.
 
 One and the same 256-bit string of pure entropy is deterministically transformed into a coherent visual sign, a *canon*.  
 *Where is the boundary between entropy and canon?* At what moment does raw data become a cultural or symbolic object—inside the SVG function, in the viewer’s perception, or already in the immutability that cryptography confers?
 
-To frame these questions, HashJing leans on two complementary ideas:
+To frame these questions, HashCanon leans on two complementary ideas:
 
 * **The visual principles of the *I Ching*** — a generative grammar of change that inspires the mandala’s radial logic.  
 * **The Daoist polarity from Wújí → Tàijí** — the leap from the undivided to the first structured difference, echoed here as entropy crystallising into image.
 
-By merging these insights with modern cryptography, HashJing places contemporary data within a long dialogue on pattern, probability and meaning.
+By merging these insights with modern cryptography, HashCanon places contemporary data within a long dialogue on pattern, probability and meaning.
 
 ### Core ideas
 
@@ -45,28 +52,13 @@ By merging these insights with modern cryptography, HashJing places contemporary
 
 ## Quick start
 
-1. Open the demo: <https://datasattva.github.io/hashjing-demo/>  
+1. Open the demo: <https://hashcanon.github.io/generator/>  
 2. Paste a hash (or type any text).  
 3. Click **Generate** to view an SVG mandala.  
 4. Download as **SVG** or **PNG**, or explore the *Features of Order* panel:  
    * Balanced / unbalanced bits  
    * Passage count  
    * Rare sealed states  
-
-## Why NFTs?
-
-The upcoming **HashJing NFT drop** – (Q3 2025)
-
-| Spec   | Value |
-|--------|-------|
-| Supply | 8 192 tokens |
-| Price  | 0.002 ETH (fixed) |
-| SVG    | Fully on-chain, gas-efficient |
-| Traits | `balanced`, `sealed`, `passages`, `creatorInitialReserve` |
-
-**Each HashJing token is a self-contained, on-chain SVG mandala:** all metadata, image data and traits (`balanced`, `passages`, original 32-byte source hash) live permanently inside the Ethereum contract — no IPFS, no external servers.
-
-Full contract code and specification: <https://github.com/DataSattva/hashjing-nft>
 
 ## Learn more
 
