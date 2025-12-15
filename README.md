@@ -72,7 +72,6 @@ By merging these insights with modern cryptography, HashCanon places contemporar
 
 [![Discussions](https://img.shields.io/github/discussions/HashCanon/hashcanon?logo=github)](https://github.com/HashCanon/hashcanon/discussions)
 [![site-resources](https://img.shields.io/badge/site-resources-181717?logo=github)](https://hashcanon.github.io/resources/)
-[![site-generator](https://img.shields.io/badge/site-generator-181717?logo=github)](https://hashcanon.github.io/generator/)
 
 **License:**  
 - Code — [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg?logo=github)](./LICENSE-MIT.md)  
