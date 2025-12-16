@@ -68,8 +68,8 @@ By merging these insights with modern cryptography, HashCanon places contemporar
 
 ## Community, Support & License
 
-- Discussions: https://github.com/HashCanon/hashcanon/discussions  
-- Contacts & resources: https://hashcanon.github.io/resources/
+- [Discussions](https://github.com/HashCanon/hashcanon.github.io/discussions)
+- [Contacts & resources](https://hashcanon.github.io/resources/)
 
 **License:**  
 - Code — [MIT](./LICENSE-MIT.md)  
