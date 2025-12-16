@@ -64,7 +64,7 @@ By merging these insights with modern cryptography, HashCanon places contemporar
 | Art Manifesto — philosophy | [ArtManifesto.md](./ArtManifesto.md) |
 | Famous Blockchain Hashes — gallery | [FamousBlockchainHashes.ipynb](./FamousBlockchainHashes.ipynb) |
 | Developer guide | [CONTRIBUTING.md](./CONTRIBUTING.md) |
-| HashCanon Generator | https://hashcanon.github.io/generator/ |
+| HashCanon Generator | [HashCanon Generator](https://hashcanon.github.io/generator/) |
 
 ## Community, Support & License
 
