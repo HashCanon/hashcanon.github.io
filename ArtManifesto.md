@@ -1,4 +1,4 @@
-# **HashCanon: The Shape of Chance — An Art Manifesto**
+# HashCanon: The Shape of Chance — An Art Manifesto
 
 > 空即是色，色即是空。  
 > *Form* itself is *emptiness*, and *emptiness* itself is *form*.  
@@ -74,13 +74,11 @@ HashCanon is
 See what your “almost impossible” symmetry looks like.
 [Open the HashCanon generator](https://hashcanon.github.io/generator/)
 
-You can also supply a custom hash—see the code in [WhitePaper.ipynb](https://github.com/HashCanon/hashcanon/blob/main/WhitePaper.ipynb).
+You can also supply a custom hash—see the code in [WhitePaper.ipynb](https://github.com/HashCanon/hashcanon.github.io/blob/main/WhitePaper.ipynb).
 
 ## Community & Support
 
-[![Join the discussion](https://img.shields.io/github/discussions/HashCanon/hashcanon?logo=github)](https://github.com/HashCanon/hashcanon/discussions)
-
 Questions, ideas or bug reports?  
-Open a thread in [**HashCanon Discussions**](https://github.com/HashCanon/hashcanon/discussions) and let’s talk!
+Open a thread in [**HashCanon Discussions**](https://github.com/HashCanon/hashcanon.github.io/discussions) and let’s talk!
 
-For a detailed list of HashCanon contacts and resources, see the page [**Contacts and Resources**](https://datasattva.github.io/hashcanon-res/).
+For a detailed list of HashCanon contacts and resources, see the page [**Contacts and Resources**](https://hashcanon.github.io/resources/).
