@@ -41,20 +41,11 @@ Two Jupyter notebooks can be opened locally or on a cloud service:
 **Requirements:** Python 3.11+, `matplotlib`, `pandas`, `numpy`.  
 Open the notebook and run all cells.
 
-## Community & Support
+## Community, Support & License
 
-[![Join the discussion](https://img.shields.io/github/discussions/HashCanon/hashcanon?logo=github)](https://github.com/HashCanon/hashcanon/discussions)
+- [Discussions](https://github.com/HashCanon/hashcanon.github.io/discussions)
+- [Contacts & resources](https://hashcanon.github.io/resources/)
 
-Questions, ideas or bug reports?  
-Open a thread in [**Hashcanon Discussions**](https://github.com/DataSattva/hashCanon/discussions) and let’s talk!
-
-For a detailed list of HashCanon contacts and resources, see the page [**Contacts and Resources**](https://datasattva.github.io/hashcanon-res/).
-
-## License
-
-Contributions are accepted under the same dual license as the project:
-
-* **Code** — MIT
-* **Visuals & documentation** — CC BY-NC 4.0
-
-By submitting content, you agree that it will be released under these terms.
+**License:**  
+- Code — [MIT](./LICENSE-MIT.md)  
+- Visuals & docs — [CC BY-NC 4.0](./LICENSE-CCBYNC.md)
