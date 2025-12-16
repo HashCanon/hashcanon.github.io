@@ -1,10 +1,10 @@
 # HashCanon  
 > **Invertible hash visualization** — a deterministic, bijective mapping between a 160/256-bit hash and a circular bit-matrix image (and back).
 
-[**▶︎ Launch the HashCanon Generator**](https://hashcanon.github.io/generator/)
+[▶︎ Launch the HashCanon Generator](https://hashcanon.github.io/generator/)
 
 **HashCanon** is an open-source toolkit and aesthetic inquiry at the point where generative art meets modern cryptography and East Asian symbolism.  
-By applying binary logic and ideas drawn from the *Yì Jīng*—better known in the West as the *I Ching* or *Book of Changes* (literally the classical *Canon of Changes*)—it turns any hash into a deterministic visual glyph, revealing the hidden patterns inside cryptographic entropy.
+By applying binary logic and ideas drawn from the *Yì Jīng*—better known in the West as the *I Ching* or *Book of Changes*—it turns any hash into a deterministic visual glyph, revealing the hidden patterns inside cryptographic entropy.
 
 <figure markdown>
 <img src="pic/hashcanon_mandala.svg" alt="Mandala generated from the SHA-256 hash of the string “HashCanon”" width="512"/>
@@ -64,13 +64,13 @@ By merging these insights with modern cryptography, HashCanon places contemporar
 | Art Manifesto — philosophy | [ArtManifesto.md](./ArtManifesto.md) |
 | Famous Blockchain Hashes — gallery | [FamousBlockchainHashes.ipynb](./FamousBlockchainHashes.ipynb) |
 | Developer guide | [CONTRIBUTING.md](./CONTRIBUTING.md) |
-| HashCanon Generator | [![site-generator](https://img.shields.io/badge/site-generator-181717?logo=github)](https://hashcanon.github.io/generator/) |
+| HashCanon Generator | https://hashcanon.github.io/generator/ |
 
 ## Community, Support & License
 
-[![Discussions](https://img.shields.io/github/discussions/HashCanon/hashcanon?logo=github)](https://github.com/HashCanon/hashcanon/discussions)
-[![site-resources](https://img.shields.io/badge/site-resources-181717?logo=github)](https://hashcanon.github.io/resources/)
+- Discussions: https://github.com/HashCanon/hashcanon/discussions  
+- Contacts & resources: https://hashcanon.github.io/resources/
 
 **License:**  
-- Code — [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg?logo=github)](./LICENSE-MIT.md)  
+- Code — [MIT](./LICENSE-MIT.md)  
 - Visuals & docs — [CC BY-NC 4.0](./LICENSE-CCBYNC.md)
