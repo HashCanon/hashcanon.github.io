@@ -17,7 +17,7 @@ By applying binary logic and ideas drawn from the *Yì Jīng*—better known in 
 
 HashCanon converts cryptographic hash strings—typically **256-bit** (SHA-256) and optionally **160-bit** (Ethereum-address format)—into **mandalas**: circular diagrams composed of radial sectors and concentric rings.  
 
-In addition to being deterministic, the mapping is **invertible**: given the fixed ring/sector layout (see the WhitePaper), the original hash can be recovered from the diagram. The image is the data.
+In addition to being deterministic, the mapping is **invertible**: given the fixed ring/sector layout (see the HashCanon Specification), the original hash can be recovered from the diagram. The image is the data.
 
 Each sector maps to one hex character; each ring maps to one of that character’s four bits. Thus a 256-bit hash yields **64 sectors**, while a 160-bit hash yields **40**. The mapping is fully deterministic: **one hash → one form**.
 
@@ -60,7 +60,7 @@ By merging these insights with modern cryptography, HashCanon places contemporar
 
 | Resource | Link |
 |----------|------|
-| White Paper — algorithms & math | [WhitePaper.ipynb](./WhitePaper.ipynb) |
+| HashCanon Specification — algorithms & math | [HashCanonSpec.ipynb](./HashCanonSpec.ipynb) |
 | Art Manifesto — philosophy | [ArtManifesto.md](./ArtManifesto.md) |
 | Famous Blockchain Hashes — gallery | [FamousBlockchainHashes.ipynb](./FamousBlockchainHashes.ipynb) |
 | Developer guide | [CONTRIBUTING.md](./CONTRIBUTING.md) |

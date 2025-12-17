@@ -9,7 +9,7 @@ However, you are welcome to explore, verify, and extend the analytical notebooks
 ```text
 ├── README.md                    # Project overview (user-facing)
 ├── CONTRIBUTING.md              # Contributing guide (this file)
-├── WhitePaper.ipynb             # Technical deep-dive: mapping, visuals, stats (Balanced, Passages, Symmetries, Crown)
+├── HashCanonSpec.ipynb             # Technical deep-dive: mapping, visuals, stats (Balanced, Passages, Symmetries, Crown)
 ├── FamousBlockchainHashes.ipynb # Re-creatable gallery of landmark blockchain hashes
 ├── ArtManifesto.md              # Artistic statement
 ├── LICENSE-MIT.md               # MIT license for source code
@@ -35,7 +35,7 @@ Two Jupyter notebooks can be opened locally or on a cloud service:
 
 | Notebook                                   | Purpose                                                                                                     |
 |--------------------------------------------|-------------------------------------------------------------------------------------------------------------|
-| [WhitePaper.ipynb](./WhitePaper.ipynb)     | Mapping rules, visual construction, and statistical metrics (Balanced, Passages, Symmetries, Crown).       |
+| [HashCanonSpec.ipynb](./HashCanonSpec.ipynb)     | Mapping rules, visual construction, and statistical metrics (Balanced, Passages, Symmetries, Crown).       |
 | [FamousBlockchainHashes.ipynb](./FamousBlockchainHashes.ipynb) | Re-create mandalas for landmark blockchain hashes; tweak parameters and add examples.                       |
 
 **Requirements:** Python 3.11+, `matplotlib`, `pandas`, `numpy`.  

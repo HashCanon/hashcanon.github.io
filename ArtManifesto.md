@@ -74,7 +74,7 @@ HashCanon is
 See what your “almost impossible” symmetry looks like.
 [Open the HashCanon generator](https://hashcanon.github.io/generator/)
 
-You can also supply a custom hash—see the code in [WhitePaper.ipynb](https://github.com/HashCanon/hashcanon.github.io/blob/main/WhitePaper.ipynb).
+You can also supply a custom hash—see the code in [HashCanonSpec.ipynb](https://github.com/HashCanon/hashcanon.github.io/blob/main/HashCanonSpec.ipynb).
 
 ## Community & Support
 
