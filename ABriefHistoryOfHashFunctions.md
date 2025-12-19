@@ -42,5 +42,5 @@
 
 HashCanon visualizes **given** 160-/256-bit hashes as circular bit-matrices. The visualization is **hash-algorithm agnostic**: any valid `n`-bit input is supported.
 In the web generator, text → **SHA-256** via Web Crypto; for blockchain examples, we use the **published** hashes (e.g., Keccak-256 in Ethereum).
-For the empirical distributions and feature methodology see the White Paper:
-[WhitePaper.ipynb](https://github.com/HashCanon/hashcanon.github.io/blob/main/WhitePaper.ipynb)
+For the empirical distributions and feature methodology see the HashCanon Specification:
+[HashCanonSpec.ipynb](https://github.com/HashCanon/hashcanon.github.io/blob/main/HashCanonSpec.ipynb)
