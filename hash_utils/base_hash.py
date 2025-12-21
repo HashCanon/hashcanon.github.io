@@ -162,79 +162,6 @@ def pad_hex_to_64(hex_string: str) -> str:
     return "0x" + padded
 
 
-def draw_mandala(hex_string, inner_radius=0.32, show_radial_line=False, sectors=64):
-    """
-    Draws a circular mandala of bits using hex input and specified number of sectors.
-
-    Args:
-        hex_string (str): Full hex string (with or without '0x').
-        inner_radius (float): Radius of the central black circle.
-        show_radial_line (bool): If True, draws red line at top (12 o'clock).
-        sectors (int): Number of sectors (default 64).
-    """
-    rings = 4
-    angle_step = 2 * np.pi / sectors
-    radius_step = 0.15
-    base_radius = inner_radius
-    rotation_offset = angle_step / 2
-
-    total_bits = sectors * rings
-    bit_array = hex_to_bit_array(hex_string)[:total_bits]
-
-    fig, ax = plt.subplots(figsize=(7, 7), subplot_kw={'projection': 'polar'})
-    fig.patch.set_facecolor('black')
-    ax.set_facecolor('black')
-    ax.set_theta_zero_location('N')
-    ax.set_theta_direction(-1)
-    ax.grid(False)
-    ax.set_xticks([])
-    ax.set_yticks([])
-
-    # Center black circle
-    ax.bar(
-        x=0,
-        height=base_radius,
-        width=2*np.pi,
-        bottom=0,
-        color='black',
-        edgecolor='black',
-        linewidth=0
-    )
-
-    # Center hash text, split into 4 lines
-    clean_hex = hex_string[2:] if hex_string.startswith("0x") else hex_string
-    line_len = len(clean_hex) // 4
-    square = [clean_hex[i:i + line_len] for i in range(0, len(clean_hex), line_len)]
-    for i, line in enumerate(square):
-        fig.text(0.51, 0.535 - i * 0.026, line,
-                 ha='center', va='center',
-                 color='white', fontsize=8, family='monospace')
-
-    # Sector rendering
-    for i in range(sectors):
-        bin_segment = bit_array[i * 4:(i + 1) * 4][::-1]
-        for j in range(rings):
-            if bin_segment[j] == 1:
-                theta = i * angle_step + rotation_offset
-                r_inner = (3 - j) * radius_step + base_radius
-                ax.bar(
-                    x=theta,
-                    height=radius_step,
-                    width=angle_step,
-                    bottom=r_inner,
-                    color='white',
-                    edgecolor='black',
-                    linewidth=0.5
-                )
-
-    if show_radial_line:
-        theta_line = 0
-        r_max = base_radius + rings * radius_step
-        ax.plot([theta_line, theta_line], [base_radius, r_max], color='red', linewidth=2)
-
-    plt.show()
-
-
 def hash_to_hex(word: str, bits: int = 256, algo: str = 'sha256') -> str:
     """
     Returns a hash of a string as a hex string with '0x' prefix.
@@ -669,7 +596,17 @@ def symmetry_overlay_segments_prepare(sym: List[Symmetry], sectors: int) -> Dict
     return symmetry_overlay_segments(sym, sectors=sectors)
 
 # -------
-def draw_mandala(hex_string, inner_radius=0.32, show_radial_line=False, sectors=64, symmetry_overlay_segments=False):
+def draw_mandala(
+    hex_string,
+    inner_radius=0.32,
+    show_radial_line=False,
+    sectors=64,
+    symmetry_overlay_segments=False,
+    *,
+    figsize=(7, 7),
+    dpi=None,
+    hash_fontsize=8,
+):
     """
     Draws a circular mandala of bits using hex input and specified number of sectors.
 
@@ -691,7 +628,10 @@ def draw_mandala(hex_string, inner_radius=0.32, show_radial_line=False, sectors=
     total_bits = sectors * rings
     bit_array = hex_to_bit_array(hex_string)[:total_bits]
 
-    fig, ax = plt.subplots(figsize=(7, 7), subplot_kw={'projection': 'polar'})
+    fig, ax = plt.subplots(figsize=figsize, subplot_kw={'projection': 'polar'})
+    if dpi is not None:
+        fig.set_dpi(dpi)
+
     fig.patch.set_facecolor('black')
     ax.set_facecolor('black')
     ax.set_theta_zero_location('N')
@@ -718,7 +658,8 @@ def draw_mandala(hex_string, inner_radius=0.32, show_radial_line=False, sectors=
     for i, line in enumerate(square):
         fig.text(0.51, 0.535 - i * 0.026, line,
                  ha='center', va='center',
-                 color='white', fontsize=8, family='monospace')
+                 color='white', fontsize=hash_fontsize, family='monospace')
+
 
     # Prepare a white-cell mask to reuse for overlays (avoid double-alpha)
     # grid_white[ring][sector] == 1 if the rendered cell is white
@@ -821,4 +762,3 @@ def draw_mandala(hex_string, inner_radius=0.32, show_radial_line=False, sectors=
                         )
 
     plt.show()
-
