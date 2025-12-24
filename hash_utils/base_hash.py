@@ -552,6 +552,32 @@ def crown_metric(hex_str: str, bits: int = 256) -> str:
     L, cnt, _, _ = crown_from_symmetries(sym)
     return f"{L}:{cnt}" if L > 0 else "—"
 
+def crown_slices(hex_str: str, bits: Optional[int] = None) -> List[str]:
+    """
+    Return the list of hex substrings that form the crown (max-length symmetries).
+
+    - bits: 256 (64 hex chars) or 160 (40 hex chars). If omitted, inferred from length.
+    - The returned slices are wrap-aware (circular), consistent with the mandala layout.
+    """
+    clean = _hex_clean(hex_str)
+
+    if bits is None:
+        if len(clean) == 64:
+            bits = 256
+        elif len(clean) == 40:
+            bits = 160
+        else:
+            raise ValueError(f"Cannot infer bits from hex length={len(clean)} (expected 40 or 64).")
+
+    sectors = 64 if bits == 256 else 40
+    if len(clean) != sectors:
+        raise ValueError(f"Hex length={len(clean)} does not match expected sectors={sectors} for bits={bits}.")
+
+    sym = find_symmetries(hex_str, bits=bits)
+    _, _, _, slices = crown_from_symmetries(sym)
+    return slices
+
+
 # ---------- Overlay data for drawing ----------------------------------------
 
 # Backward- and forward-compatible overlay builder
