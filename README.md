@@ -1,5 +1,5 @@
 # HashCanon  
-> **Invertible hash visualization** — a deterministic, bijective mapping between a 160/256-bit hash and a circular bit-matrix image (and back).
+> **Invertible hash visualization** — a deterministic, bijective mapping between a hex-encoded hash and a circular bit-matrix image (and back).
 
 **[▶︎ Launch the HashCanon Generator](https://hashcanon.github.io/generator/)**
 
@@ -19,7 +19,8 @@ HashCanon converts cryptographic hash strings—typically **256-bit** (SHA-256) 
 
 In addition to being deterministic, the mapping is **invertible**: given the fixed ring/sector layout (see the HashCanon Specification), the original hash can be recovered from the diagram. The image is the data.
 
-Each sector maps to one hex character; each ring maps to one of that character’s four bits. Thus a 256-bit hash yields **64 sectors**, while a 160-bit hash yields **40**. The mapping is fully deterministic: **one hash → one form**.
+Each sector maps to one hex character; each ring maps to one of that character’s four bits.  
+So a hex string of length **N** yields **N sectors × 4 rings**. Common cases: **64 hex chars → 64 sectors (256-bit)**, **40 hex chars → 40 sectors (160-bit)**. The mapping is fully deterministic: **one hash → one form**.
 
 Default hashing uses SHA-256; **Keccak-256** (the Ethereum variant) is available as an option.  
 Any 160-bit Ethereum address (wallet or contract) can be visualised as a 40-sector mandala.
@@ -52,9 +53,11 @@ By merging these insights with modern cryptography, HashCanon places contemporar
 2. Paste a hash (or type any text).  
 3. Click **Generate** to view an SVG mandala.  
 4. Download as **SVG** or **PNG**, or explore the *Features of Order* panel:  
-   * Balanced / unbalanced bits  
-   * Passage count  
-   * Rare sealed states  
+   * **Evenness** (bit mix balance)  
+   * **Passages**  
+   * **Crown** (`rank:count`)  
+   * **Symmetries** (`N total | Ranks: 2:…, 3:…`)  
+   * **Symmetry slices (Show)** — repeating motifs formatted as `start-end: hex` (1-based sectors, wrap-aware ranges like `60-4`)  
 
 ## Learn more
 

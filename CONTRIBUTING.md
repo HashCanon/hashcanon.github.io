@@ -1,51 +1,116 @@
 # Contributing to HashCanon
 
-Thank you for your interest in **HashCanon**.  
-The core codebase and visuals are complete and maintained by the project author, so no active development roadmap is advertised.  
-However, you are welcome to explore, verify, and extend the analytical notebooks that accompany the project.
+Thank you for your interest in **HashCanon**.
 
-## Repository layout
+The core mapping, visuals, and generator are maintained by the project author, so there is no public “feature roadmap” or open call for large refactors. However, you are very welcome to:
+
+- explore and verify the analytical notebooks,
+- reproduce the metrics (Balanced, Passages, Symmetries, Crown),
+- extend the analysis locally for your own experiments.
+
+If you discover a clear bug, inconsistency, or a mistake in the spec/notebooks, you can open a discussion on GitHub.
+
+---
+
+## Repository layout (high-level)
 
 ```text
 ├── README.md                    # Project overview (user-facing)
-├── CONTRIBUTING.md              # Contributing guide (this file)
-├── HashCanonSpec.ipynb             # Technical deep-dive: mapping, visuals, stats (Balanced, Passages, Symmetries, Crown)
+├── CONTRIBUTING.md              # This contributing guide
+├── HashCanonSpec.ipynb          # Mapping rules, visuals, Balanced / Passages / Symmetries / Crown
 ├── FamousBlockchainHashes.ipynb # Re-creatable gallery of landmark blockchain hashes
 ├── ArtManifesto.md              # Artistic statement
-├── LICENSE-MIT.md               # MIT license for source code
-├── LICENSE-CCBYNC.md            # CC BY-NC 4.0 for visuals & docs
+├── LICENSE-MIT.md               # MIT license for source code and textual docs
+├── LICENSE-CCBYNC.md            # CC BY-NC 4.0 for visual artworks (mandalas)
 ├── hash_utils/
-│   ├── __init__.py              # Package marker
-│   └── base_hash.py             # Core hash→mandala logic + metrics
-└── pic/
-    ├── hashcanon_mandala.svg     # Legacy sample image
-    └── yi_circle.jpg            # 64-hexagram I Ching diagram
+│   └── base_hash.py             # Python helpers for hashes, traits and symmetry analysis
+└── pic/                         # Selected visual outputs (mandalas and related images)
+````
+
+---
+
+## Working with notebooks
+
+The two main notebooks are:
+
+| Notebook                       | Purpose                                                                 |
+| ------------------------------ | ----------------------------------------------------------------------- |
+| `HashCanonSpec.ipynb`          | Canon mapping rules, geometry, feature definitions and basic statistics |
+| `FamousBlockchainHashes.ipynb` | Examples and “exhibits”: well-known blockchain hashes and contracts     |
+
+**Requirements (typical):**
+
+* Python 3.11+
+* `matplotlib`
+* `numpy`
+* `pandas`
+* `pycryptodome` (for Keccak, if you use it in local experiments)
+
+You can install them into a virtual environment, for example:
+
+```bash
+pip install numpy pandas matplotlib pycryptodome
 ```
 
+Then open the notebook in Jupyter / JupyterLab and run all cells top-to-bottom.
 
-**Почему «legacy»?** Файл реально называется `hashjing_mandala.svg`, это историческое имя артефакта из старого названия проекта. Пометка просто предупреждает читателя; переименовывать сейчас не обязательно.
+---
 
-## 2) Блок “Reproducible notebooks” — исправить опечатку и зависимости
+## `hash_utils/base_hash.py` (analysis helpers)
 
-Заменить существующий раздел целиком на:
+The module `hash_utils/base_hash.py` contains the Python helpers used in the notebooks, including:
 
-## Reproducible notebooks
+* hash generation utilities (random hashes, text → hash),
+* evenness/bit-balance helpers,
+* passage counting in the 4×N circular grid,
+* symmetry analysis:
 
-Two Jupyter notebooks can be opened locally or on a cloud service:
+  * `find_symmetries(...)`
+  * `symmetry_ranks(...)`
+  * `symmetry_metric(...)`
+  * `crown_metric(...)`
+  * `crown_slices(...)`
+  * `symmetry_overlay_segments(...)`
+* `draw_mandala(...)` — reference renderer for circular bit-matrices with optional symmetry overlay.
 
-| Notebook                                   | Purpose                                                                                                     |
-|--------------------------------------------|-------------------------------------------------------------------------------------------------------------|
-| [HashCanonSpec.ipynb](./HashCanonSpec.ipynb)     | Mapping rules, visual construction, and statistical metrics (Balanced, Passages, Symmetries, Crown).       |
-| [FamousBlockchainHashes.ipynb](./FamousBlockchainHashes.ipynb) | Re-create mandalas for landmark blockchain hashes; tweak parameters and add examples.                       |
+A few ground rules if you touch this file locally for experiments:
 
-**Requirements:** Python 3.11+, `matplotlib`, `pandas`, `numpy`.  
-Open the notebook and run all cells.
+* Keep function signatures stable if you reuse the notebooks.
+* Do not change the semantics of the **canon** (mapping from bits to rings/sectors).
+* If you extend functionality, prefer adding separate helpers instead of changing the core ones in incompatible ways.
 
-## Community, Support & License
+At the moment there is no guarantee that external PRs to this module will be reviewed or merged; treat it primarily as a reference implementation for your own analysis.
 
-- [Discussions](https://github.com/HashCanon/hashcanon.github.io/discussions)
-- [Contacts & resources](https://hashcanon.github.io/resources/)
+---
 
-**License:**  
-- Code — [MIT](./LICENSE-MIT.md)  
-- Visuals & docs — [CC BY-NC 4.0](./LICENSE-CCBYNC.md)
+## Reporting issues or inconsistencies
+
+If you notice:
+
+* a mismatch between the spec (`HashCanonSpec.ipynb`) and the implementation,
+* a reproducible bug in trait calculations (Balanced, Passages, Symmetries, Crown),
+* or a clear mistake in the textual docs,
+
+you can open a GitHub **Discussion** and describe:
+
+1. which file/notebook you are referring to,
+2. the exact input (hash, address, or block),
+3. the expected vs. observed behaviour.
+
+Link: [https://github.com/HashCanon/hashcanon.github.io/discussions](https://github.com/HashCanon/hashcanon.github.io/discussions)
+
+---
+
+## Community, support & links
+
+* Discussions: [https://github.com/HashCanon/hashcanon.github.io/discussions](https://github.com/HashCanon/hashcanon.github.io/discussions)
+* Project resources: [https://hashcanon.github.io/resources/](https://hashcanon.github.io/resources/)
+
+---
+
+## License & attribution
+
+* **Source code and textual documentation** — [MIT](./LICENSE-MIT.md)
+* **Visual artworks (mandalas and other visual outputs)** — [CC BY-NC 4.0](./LICENSE-CCBYNC.md)
+
+If you reference HashCanon in research, posts, or derivative analysis, please attribute the project name (**HashCanon**) and the author (**DataSattva**) and link to the main repo or the resources page.
