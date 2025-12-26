@@ -6,21 +6,6 @@ from decimal import Decimal
 from collections import deque
 from Crypto.Hash import keccak
 
-__all__ = [
-    "generate_random_hash",
-    "explain_hex_to_bin",
-    "draw_binary_grid_from_hex_dark",
-    "draw_mandala",
-    "hash_to_hex",
-    "generate_balanced_hash",
-    "bit_ratio",
-    "is_balanced",
-    "count_unique_passages",
-    "generate_hash_with_passages",
-    "passage_distribution",
-    "generate_hash_dataframe"
-]
-
 
 def generate_random_hash(bits: int = 256, algo: str = 'sha256') -> str:
     """
@@ -435,7 +420,10 @@ def generate_hash_dataframe(n: int = 10000, bits: int = 256) -> pd.DataFrame:
 
     return pd.DataFrame(data, columns=["hash", "is_balanced", "num_passages"])
 
-# Symmetries for HashCanon (Jupyter-friendly).
+# =============================================================================
+# Symmetries (Jupyter-friendly)
+# =============================================================================
+
 # Symmetry analysis and mandala drawing with optional overlay
 
 from typing import List, Dict, Tuple, Optional
@@ -448,9 +436,25 @@ Symmetry = Tuple[int, int, str]  # (start, length, slice)
 # ---------- Bit/grid helpers -------------------------------------------------
 
 def _hex_clean(hex_str: str) -> str:
+    """
+    Strip a leading "0x" prefix (lowercase) if present and return the remaining string.
+
+    Notes:
+        - This helper does not trim whitespace.
+        - It does not validate hex characters.
+        - It does not normalize case.
+    """
     return hex_str[2:] if hex_str.startswith("0x") else hex_str
 
 def _bits_from_hex(hex_str: str) -> List[int]:
+    """
+    Convert a hex string (with or without "0x") into a flat list of bits (0/1).
+
+    Notes:
+        - Each hex character expands to 4 bits.
+        - Bits are emitted MSB → LSB within each hex character.
+        - Output length is 4 * len(clean_hex), where clean_hex is after `_hex_clean`.
+    """
     clean = _hex_clean(hex_str)
     out: List[int] = []
     for h in clean:
@@ -458,7 +462,14 @@ def _bits_from_hex(hex_str: str) -> List[int]:
     return out
 
 def _grid_4xN(hex_str: str, sectors: int) -> List[List[int]]:
-    """Return 4 x N grid; ring 0 is LSB (inner ring)."""
+    """
+    Return a 4 × N bit grid (rings × sectors) derived from the hex string.
+
+    Notes:
+        - Ring index 0 corresponds to the first bit of each hex nibble emitted by `_bits_from_hex`
+          (MSB → LSB per hex character).
+        - Sector index corresponds to the hex character position (0-based).
+    """
     bits = _bits_from_hex(hex_str)
     grid = [[0] * sectors for _ in range(4)]
     for s in range(sectors):
@@ -507,38 +518,124 @@ def _uniq_max(sym_list: List[Symmetry], sectors: int) -> List[Symmetry]:
             keep.append(cand)
     return sorted(keep, key=lambda t: t[0])
 
-def find_symmetries(hex_str: str, bits: int = 256) -> List[Symmetry]:
-    """Return maximal circular palindromes as (start, length, slice)."""
-    sectors = 64 if bits == 256 else 40
+def _resolve_sectors(
+    *,
+    hex_str: Optional[str] = None,
+    sectors: Optional[int] = None,
+    bits: Optional[int] = None,
+) -> int:
+    """
+    Resolve the number of sectors (hex digits) for the effective layout.
+
+    Resolution order: explicit `sectors` → len(hex_str) → bits/4.
+    This is used by analysis helpers so they match the same layout as rendering.
+    """
+    # Resolve sectors consistently for any hex length.
+    if sectors is not None:
+        s = int(sectors)
+        if s <= 0:
+            raise ValueError(f"sectors must be > 0, got {s}.")
+        return s
+
+    if isinstance(hex_str, str):
+        clean = _hex_clean(hex_str)
+        if len(clean) > 0:
+            return len(clean)
+
+    if bits is not None:
+        b = int(bits)
+        if b <= 0 or b % 4 != 0:
+            raise ValueError(f"bits must be a positive multiple of 4, got {b}.")
+        return b // 4
+
+    raise ValueError("Unable to resolve sectors: provide sectors, hex_str, or bits.")
+
+# ---- find_symmetries --------------------------------------------------------
+def find_symmetries(
+    hex_str: str,
+    bits: Optional[int] = None,
+    *,
+    sectors: Optional[int] = None,
+) -> List[Symmetry]:
+    """
+    Return maximal circular palindromes as (start, length, motif_hex).
+
+    Returns:
+        List of tuples (start, length, motif_hex), where:
+            - start: 0-based sector index
+            - length: measured in sectors (hex characters)
+            - motif_hex: wrap-aware (circular) substring (no "0x")
+
+    Notes:
+        - One sector corresponds to one hex character.
+        - If `sectors` is not provided, it is resolved via `bits` or inferred from hex length.
+        - Ranges and slices are wrap-aware on the circle.
+    """
+    # Keep legacy compatibility:
+    # - Old calls often passed bits=256/160. We still accept that.
+    # - If bits is None, infer sectors from hex length.
+    if sectors is None and bits in (160, 256):
+        sectors = bits // 4
+
+    sectors = _resolve_sectors(hex_str=hex_str, sectors=sectors, bits=bits)
     grid = _grid_4xN(hex_str, sectors)
     clean = _hex_clean(hex_str)
+
     found: List[Symmetry] = []
     for start in range(sectors):
         for length in range(2, sectors + 1):
             if _is_circular_palindrome(grid, start, length, sectors):
                 found.append((start, length, _circular_slice(clean, start, length)))
+
     return _uniq_max(found, sectors)
 
+# ---- symmetry_ranks ---------------------------------------------------------
 def symmetry_ranks(sym: List[Symmetry]) -> Dict[int, int]:
-    """Aggregate counts by length (rank)."""
+    """
+    Aggregate symmetry counts by rank (symmetry length in sectors).
+
+    Returns:
+        Dict[length, count] sorted by increasing length.
+
+    Notes:
+        - Rank unit is "sectors" where 1 sector == 1 hex character.
+    """
     ranks: Dict[int, int] = {}
     for _, L, _ in sym:
         ranks[L] = ranks.get(L, 0) + 1
     return dict(sorted(ranks.items()))
 
-def symmetry_metric(hex_str: str, bits: int = 256) -> str:
-    """Return string like: '9 total | Ranks: 2:3, 3:6'."""
-    sym = find_symmetries(hex_str, bits=bits)
+# ---- symmetry_metric --------------------------------------------------------
+def symmetry_metric(hex_str: str, bits: Optional[int] = None, *, sectors: Optional[int] = None) -> str:
+    """
+    Return a compact summary string for symmetries, e.g. "9 total | Ranks: 2:5, 3:4".
+
+    Notes:
+        - Uses `find_symmetries(...)` with the same sector resolution rules.
+        - Ranks are reported as "length:count" in increasing length order.
+    """
+    sym = find_symmetries(hex_str, bits=bits, sectors=sectors)
     ranks = symmetry_ranks(sym)
-    ranks_str = ", ".join(f"{L}:{cnt}" for L, cnt in ranks.items())
+    ranks_str = ", ".join(f"{L}:{cnt}" for L, cnt in ranks.items()) if ranks else "—"
     return f"{len(sym)} total | Ranks: {ranks_str}"
 
-# ---------- Crown (max symmetry) --------------------------------------------
-
+# ---- crown_from_symmetries --------------------------------------------------
 def crown_from_symmetries(sym: List[Symmetry]) -> Tuple[int, int, List[int], List[str]]:
     """
-    Return (max_len, count, starts, slices) for the maximal-rank symmetries.
-    Example: (4, 1, [start_idx], [slice_hex])
+    Compute the Crown from a precomputed symmetry list.
+
+    Crown definition:
+        The maximal symmetry length (rank) present in the list and its multiplicity.
+
+    Returns:
+        (max_len, count, starts, slices)
+            - max_len: maximal symmetry length (in sectors)
+            - count: number of symmetries with max_len
+            - starts: list of start indices (0-based sectors)
+            - slices: list of wrap-aware motif hex strings (no "0x")
+
+    Notes:
+        - If the symmetry list is empty, returns (0, 0, [], []).
     """
     if not sym:
         return (0, 0, [], [])
@@ -546,37 +643,35 @@ def crown_from_symmetries(sym: List[Symmetry]) -> Tuple[int, int, List[int], Lis
     tops = [(s, sl) for (s, L, sl) in sym if L == max_len]
     return (max_len, len(tops), [s for s, _ in tops], [sl for _, sl in tops])
 
-def crown_metric(hex_str: str, bits: int = 256) -> str:
-    """Return 'L:K' for the maximal symmetry, e.g. '4:1'."""
-    sym = find_symmetries(hex_str, bits=bits)
+# ---- crown_metric -----------------------------------------------------------
+def crown_metric(hex_str: str, bits: Optional[int] = None, *, sectors: Optional[int] = None) -> str:
+    """
+    Return the Crown metric as "<rank>:<count>", e.g. "4:1". If none: "—".
+
+    Notes:
+        - Rank is measured in sectors (hex characters).
+        - Sector resolution follows the same rules as `find_symmetries(...)`.
+    """
+
+    sym = find_symmetries(hex_str, bits=bits, sectors=sectors)
     L, cnt, _, _ = crown_from_symmetries(sym)
     return f"{L}:{cnt}" if L > 0 else "—"
 
-def crown_slices(hex_str: str, bits: Optional[int] = None) -> List[str]:
+# ---- crown_slices -----------------------------------------------------------
+def crown_slices(hex_str: str, bits: Optional[int] = None, *, sectors: Optional[int] = None) -> List[str]:
     """
-    Return the list of hex substrings that form the crown (max-length symmetries).
+    Return motif hex substrings for the maximal-length symmetries (the Crown).
 
-    - bits: 256 (64 hex chars) or 160 (40 hex chars). If omitted, inferred from length.
-    - The returned slices are wrap-aware (circular), consistent with the mandala layout.
+    Returns:
+        List[str] of wrap-aware motif hex strings (no "0x").
+
+    Notes:
+        - Slices are wrap-aware (circular).
+        - Sector resolution follows the same rules as `find_symmetries(...)`.
     """
-    clean = _hex_clean(hex_str)
-
-    if bits is None:
-        if len(clean) == 64:
-            bits = 256
-        elif len(clean) == 40:
-            bits = 160
-        else:
-            raise ValueError(f"Cannot infer bits from hex length={len(clean)} (expected 40 or 64).")
-
-    sectors = 64 if bits == 256 else 40
-    if len(clean) != sectors:
-        raise ValueError(f"Hex length={len(clean)} does not match expected sectors={sectors} for bits={bits}.")
-
-    sym = find_symmetries(hex_str, bits=bits)
+    sym = find_symmetries(hex_str, bits=bits, sectors=sectors)
     _, _, _, slices = crown_from_symmetries(sym)
     return slices
-
 
 # ---------- Overlay data for drawing ----------------------------------------
 
@@ -586,6 +681,7 @@ def crown_slices(hex_str: str, bits: Optional[int] = None) -> List[str]:
 #   2) symmetry_overlay_segments(sym, hex_str=..., bits=...)    # new (no sectors)
 #   3) symmetry_overlay_segments(sym)                           # heuristic (40/64)
 
+# ---- symmetry_overlay_segments ----------------------------------------------
 def symmetry_overlay_segments(
     sym: List[Symmetry],
     sectors: Optional[int] = None,
@@ -593,40 +689,65 @@ def symmetry_overlay_segments(
     hex_str: Optional[str] = None,
     bits: Optional[int] = None,
 ) -> Dict[str, List[Tuple[int, int]]]:
-    """Return overlay data with both legacy and new calling styles supported."""
-    # ---- resolve sectors (keep legacy calls working) ------------------------
-    if sectors is None:
-        # try to infer from hex_str length
-        if isinstance(hex_str, str):
-            clean = hex_str[2:] if hex_str.startswith("0x") else hex_str
-            if len(clean) in (40, 64):
-                sectors = len(clean)
-        # try to infer from bits
-        if sectors is None and bits in (160, 256):
-            sectors = bits // 4
-        # fallback heuristic
-        if sectors is None:
-            fits40 = all((s < 40 and L <= 40) for (s, L, _) in sym) if sym else True
-            sectors = 40 if fits40 else 64
+    """
+    Return overlay spans for drawing symmetry highlights.
 
-    # ---- build lists --------------------------------------------------------
-    max_len = max((L for _, L, _ in sym), default=0)
-    boundaries = [(s, (s + L) % sectors) for (s, L, _) in sym]
-    all_spans  = [(s, L) for (s, L, _) in sym]
-    max_spans  = [(s, L) for (s, L, _) in sym if L == max_len]
+    Returns:
+        dict with keys:
+            - "boundaries": list[(start, end)] where end = (start + length) % sectors
+            - "all_spans": list[(start, length)] for all symmetries
+            - "max_spans": list[(start, length)] for maximal-length symmetries
+
+    Notes:
+        Overlay uses the same indexing convention as rendering:
+        1 sector == 1 hex character, indices are 0-based, ranges are wrap-aware.
+    """
+    # Backward compatibility: accept legacy `bits=160/256` calls.
+    if sectors is None:
+        if isinstance(hex_str, str):
+            clean = _hex_clean(hex_str)
+            if len(clean) > 0:
+                sectors = len(clean)
+
+    if sectors is None and bits is not None:
+        b = int(bits)
+        if b <= 0 or b % 4 != 0:
+            raise ValueError(f"bits must be a positive multiple of 4, got {b}.")
+        sectors = b // 4
+
+    if sectors is None:
+        # Legacy fallback: only choose between 40/64 when nothing else is known.
+        fits40 = all((s < 40 and L <= 40) for (s, L, _) in sym) if sym else True
+        sectors = 40 if fits40 else 64
+
+    s = int(sectors)
+    if s <= 0:
+        raise ValueError(f"sectors must be > 0, got {s}.")
+
+    all_spans: List[Tuple[int, int]] = [(st, L) for (st, L, _) in sym]
+    boundaries: List[Tuple[int, int]] = [(st, (st + L) % s) for (st, L, _) in sym]
+
+    max_len = max((L for (_, L, _) in sym), default=0)
+    max_spans: List[Tuple[int, int]] = [(st, L) for (st, L, _) in sym if L == max_len] if max_len else []
+
     return {"boundaries": boundaries, "all_spans": all_spans, "max_spans": max_spans}
+
 
 # Legacy adapter kept for internal/older calls; delegates to the unified API.
 def symmetry_overlay_segments_prepare(sym: List[Symmetry], sectors: int) -> Dict[str, List[Tuple[int, int]]]:
-    """Deprecated: use symmetry_overlay_segments(sym, ...) instead."""
+    """
+    Backward-compatible wrapper kept for older notebooks.
+
+    Deprecated: prefer `symmetry_overlay_segments(sym, sectors=...)`.
+    """
     return symmetry_overlay_segments(sym, sectors=sectors)
 
-# -------
+# ---- draw_mandala -----------------------------------------------------------
 def draw_mandala(
     hex_string,
     inner_radius=0.32,
     show_radial_line=False,
-    sectors=64,
+    sectors: Optional[int] = None,
     symmetry_overlay_segments=False,
     *,
     figsize=(7, 7),
@@ -640,10 +761,33 @@ def draw_mandala(
         hex_string (str): Full hex string (with or without '0x').
         inner_radius (float): Radius of the central black circle.
         show_radial_line (bool): If True, draws red line at top (12 o'clock).
-        sectors (int): Number of sectors (default 64).
+        sectors (int|None): Number of sectors. If None, inferred from hex length.
+            If provided and smaller than hex length, the input is truncated to the first N hex chars.
         symmetry_overlay_segments (bool): If True, draws symmetry overlays
             (red boundaries, gray spans for all palindromes, red spans for maximals) exactly like the JS generator.
+    
+    Notes:
+    - Rendering and analysis share the same effective layout: overlay logic uses the same
+      `sectors` and the same truncated/normalized hex used for drawing.
+    - When `sectors` is provided and smaller than input length, the hex is truncated to the first N characters.        
     """
+    # ---- normalize input + effective layout ---------------------------------
+    clean_full = _hex_clean(hex_string)
+    if len(clean_full) == 0:
+        raise ValueError("Empty hex string.")
+
+    if sectors is None:
+        sectors = len(clean_full)
+    else:
+        sectors = int(sectors)
+        if sectors <= 0:
+            raise ValueError(f"sectors must be > 0, got {sectors}.")
+        if sectors > len(clean_full):
+            raise ValueError(f"sectors={sectors} exceeds hex length={len(clean_full)}.")
+
+    clean_hex = clean_full[:sectors]
+    hex_string = "0x" + clean_hex
+
     # ---- original rendering logic (unchanged) -------------------------------
     rings = 4
     angle_step = 2 * np.pi / sectors
@@ -677,15 +821,16 @@ def draw_mandala(
         linewidth=0
     )
 
-    # Center hash text, split into 4 lines
-    clean_hex = hex_string[2:] if hex_string.startswith("0x") else hex_string
-    line_len = len(clean_hex) // 4
-    square = [clean_hex[i:i + line_len] for i in range(0, len(clean_hex), line_len)]
+    # Center hash text, split into 4 lines (robust for any length)
+    n = len(clean_hex)
+    cuts = [(i * n) // 4 for i in range(5)]
+    square = [clean_hex[cuts[i]:cuts[i + 1]] for i in range(4)]
     for i, line in enumerate(square):
-        fig.text(0.51, 0.535 - i * 0.026, line,
-                 ha='center', va='center',
-                 color='white', fontsize=hash_fontsize, family='monospace')
-
+        fig.text(
+            0.51, 0.535 - i * 0.026, line,
+            ha='center', va='center',
+            color='white', fontsize=hash_fontsize, family='monospace'
+        )
 
     # Prepare a white-cell mask to reuse for overlays (avoid double-alpha)
     # grid_white[ring][sector] == 1 if the rendered cell is white
@@ -716,10 +861,10 @@ def draw_mandala(
         r_max = base_radius + rings * radius_step
         ax.plot([theta_line, theta_line], [r_min, r_max], color='red', linewidth=2)
 
-    # ---- symmetry overlay (added; JS-equivalent semantics) ------------------
+    # ---- symmetry overlay (JS-equivalent semantics) -------------------------
     if symmetry_overlay_segments:
-        bits = 256 if sectors == 64 else 160
-        syms = find_symmetries(hex_string, bits=bits)
+        # IMPORTANT: compute symmetries in the same effective sectors as rendering.
+        syms = find_symmetries(hex_string, sectors=sectors)
 
         # 1) Red boundaries: draw exactly from base_radius to r_max (no overshoot)
         r_min = base_radius
@@ -736,10 +881,10 @@ def draw_mandala(
         # Mark coverage for all palindromes (gray)
         for s0, L, _ in syms:
             for k in range(L):
-                i = (s0 + k) % sectors
+                ii = (s0 + k) % sectors
                 for j in range(rings):
-                    if grid_white[j][i] == 1:  # paint only over originally white cells
-                        cover_gray[j][i] = 1
+                    if grid_white[j][ii] == 1:
+                        cover_gray[j][ii] = 1
 
         # Mark coverage for maximal palindromes (red)
         max_len = max((L for _, L, _ in syms), default=0)
@@ -748,15 +893,15 @@ def draw_mandala(
                 if L != max_len:
                     continue
                 for k in range(L):
-                    i = (s0 + k) % sectors
+                    ii = (s0 + k) % sectors
                     for j in range(rings):
-                        cover_red[j][i] = 1
+                        cover_red[j][ii] = 1
 
         # 2) Gray translucent fills for all palindromes (one paint per cell)
         for i in range(sectors):
             theta_center = i * angle_step + rotation_offset
             for j in range(rings):
-                if cover_gray[j][i] == 1 and cover_red[j][i] == 0:  # ← added mask
+                if cover_gray[j][i] == 1 and cover_red[j][i] == 0:
                     r_inner = (3 - j) * radius_step + base_radius
                     ax.bar(
                         x=theta_center,
