@@ -7,7 +7,7 @@
 ## The Mandala of Randomness
 
 **HashCanon** is a conceptual meditation on the nature of chance and order.
-We take a 256-bit string— a cryptographically secure seed or the hash of any token—and turn it into a **mandala of randomness** with 64 radial sectors (one per hex character) and four concentric rings (one per bit).
+In its canonical form, it takes a 256-bit string — a cryptographically secure seed or the hash of any token — and turns it into a **mandala of randomness** with 64 radial sectors (one per hex character) and four concentric rings (one per bit).
 
 <figure markdown>
 <img src="pic/hashcanon_mandala.svg" alt="Mandala generated from the SHA-256 hash of the string “HashCanon”" width="512"/>
